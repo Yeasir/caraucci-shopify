@@ -1,0 +1,46 @@
+<div id="is_cart_canvas" class="uk-offcanvas">
+	<div class="cart_container uk-offcanvas-bar uk-offcanvas-bar-flip" data-text-emptycart="'No products in the cart.">
+		<div class="uk-panel">
+
+			<h3 class="widget-title">Bag</h3>
+
+			<ul class="cart_list product_list_widget">
+				{% if cart.item_count == 0 %}
+					<li class="empty">No product in the bag</li>
+				{% else %}
+					{% for line_item in cart.items %}
+						<li class="media">
+							<a href="{{ line_item.url }}" class="cart-image pull-left">
+								{{ line_item.image |  img_url: 'small' | img_tag }}
+							</a>
+							<div class="cart-main-content media-body">
+								<div class="name">
+									<a href="{{ line_item.url }}">
+										{{ line_item.title }}
+									</a>								
+								</div>
+								<p class="cart-item">
+									<span class="quantity">{{ line_item.quantity }} × <span class="amount">{{ line_item.price | money_with_currency }}</span></span>									
+								</p>
+							</div>
+							<a href="#" class="is_product_remove" data-product-id="{{ line_item.variant_id }}">
+								<i class="fa fa-close"></i>
+							</a>
+						</li>
+					{% endfor %}
+				{% endif %}
+			</ul><!-- end product list -->
+			
+			<div class="cart-actions {% if cart.item_count == 0 %}hidden{% endif %}">
+				<p class="total">
+					<strong>Subtotal:</strong> <span class="amount">{{ cart.total_price | money_with_currency }}</span>
+				</p>
+				
+				<p class="buttons">
+					<a href="/cart" class="btn sbtn-light sbtn-large btn-viewcart">View Bag</a>
+					<a href="/checkout" class="btn sbtn-light sbtn-large btn-checkout">Checkout</a>
+				</p>					
+			</div>
+		</div>
+	</div>
+</div>

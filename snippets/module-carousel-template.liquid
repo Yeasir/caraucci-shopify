@@ -1,0 +1,62 @@
+{% if settings.enable_carousel %}
+<div class="owl-container">
+	<div class="is-carousel" 
+		data-dots="{{ settings.enable_dot }}" 
+		data-nav="{{ settings.enable_nav }}" 
+		data-loop="{{ settings.enable_loop }}" 
+		data-autoplay="{{ settings.enable_autoplay }}">
+	{% for i in (1..5) %}
+		{% capture enable %}enable_carousel_{{ i }}{% endcapture %}
+		{% capture text %}carousel_{{ i }}_text{% endcapture %}
+		{% capture text_position %}carousel_{{ i }}_text_position{% endcapture %}
+		{% capture image %}carousel_{{ i }}{% endcapture %}
+		{% capture img_alt %}carousel_{{ i }}_alt{% endcapture %}
+		{% capture img_title %}carousel_{{ i }}_title{% endcapture %}
+		{% capture slide_title %}slide_{{ i }}_title{% endcapture %}
+		{% capture slide_url %}slide_{{ i }}_url{% endcapture %}
+		{% capture slide_subtitle %}slide_{{ i }}_subtitle{% endcapture %}
+		{% capture slide_discount_text %}slide_{{ i }}_discount_text{% endcapture %}
+		{% capture slide_under_discount_text %}slide_{{ i }}_under_discount_text{% endcapture %}
+		{% capture slide_coupon %}slide_{{ i }}_coupon{% endcapture %}
+		{% if settings[enable] %}
+			<div class="carousel-item carousel-item-{{ i }}">
+				<img src="{{ settings[image] | img_url: 'master' }}" alt="{{ settings[img_alt] }}" title="{{ settings[img_title] }}">
+				<div class="carousel-text {{ settings[text_position] }} carousel-caption">
+					<div class="carousel-caption-inner">
+
+					{% if settings[slide_title] != '' %}
+                        {% if settings[slide_url] != '' %}
+							<h3><a href="{{ settings[slide_url] }}" title="{{ settings[slide_title]  }}">{{ settings[slide_title]  }}</a></h3>
+                        {% else %}
+							<h3>{{ settings[slide_title]  }}</h3>
+                        {% endif %}
+					{% endif %}
+
+					{% if settings[slide_subtitle] != '' %}
+						<h4>{{ settings[slide_subtitle] }}</h4>
+					{% endif %}
+
+					{% if settings[slide_discount_text] != '' %}
+						<div class="slide_discount_text"><strong>{{ settings[slide_discount_text] }}</strong></div>
+					{% endif %}
+
+					{% if settings[slide_under_discount_text] != '' %}
+						<div class="slide_under_discount_text"><span>{{ settings[slide_under_discount_text] }}</span></div>
+					{% endif %}
+
+					{% if settings[slide_coupon] != '' %}
+						<div class="slide_coupon">
+							<span>use code</span>
+							<span>{{ settings[slide_coupon] }}</span>
+						</div>
+					{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+	</div>
+</div>
+{% endif %}
+
+<!-- asdf -->

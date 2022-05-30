@@ -1,0 +1,41 @@
+{% for article in blog.articles %}
+<div class="blog-container clearfix text-center">
+	<div class="entry-header">
+		<div class="item-cate"><a href="{{ blog.url }}">{{ blog.title }} </a> </div>
+		<h2 class="entry-title clearfix">
+			<a href="{{ article.url }}">{{ article.title }}</a>
+		</h2>
+		<div class="entry-meta clearfix">
+			<span>
+			<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+			 {{ article.published_at | date: "%b %d, %Y" }}
+			</time></span>
+			<span><a href="">{{article.comments_count}} Comment</a> </span>
+		</div>
+	</div>
+
+	{% if article.image %}
+		<div class="post-thumb">
+        	{% assign image_alt = article.title | escape %}
+        	{{ article | img_url: '1024x1024' | img_tag: image_alt, 'article__image' | link_to: article.url }}
+        	<span class="post-type"><i class="icon-docs"></i></span>
+    	</div>
+
+  	{% endif %}
+	
+  	<div class="inner">
+  		<div class="inner-content clearfix">
+  			<div class="entry-content">
+  				{% if article.excerpt.size > 0 %}
+					{{ article.excerpt }}
+              	{% else %}
+                	<p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+              	{% endif %}
+              	<div class="link-readmore">
+					<a href="{{ article.url }}" class="btn">Read more </a>
+				</div>
+  			</div>
+  		</div>
+  	</div>
+</div>
+{% endfor %}

@@ -1,0 +1,52 @@
+{% if item.object_type == 'product' %}
+	<div class="col-sm-3">
+	  	{% assign product = item %}  
+	  	{% include 'product-archive-horizontal-item' %}
+	</div>
+{% else %}
+	{% assign article = item %}  
+	<div class="blog-container clearfix">
+		<div class="row">
+			<div class="col-sm-4">
+				{% if article.image %}
+					<div class="post-thumb">
+	                	{% assign image_alt = article.title | escape %}
+	                	{{ article | img_url: '1024x1024' | img_tag: image_alt, 'article__image' | link_to: article.url }}
+                	</div>
+              	{% endif %}
+			</div>
+			<div class="col-sm-8">
+				<div class="entry-header">
+  					<h2 class="entry-title clearfix">
+  						<a href="{{ article.url }}">{{ article.title }}</a>
+  					</h2>
+  					<div class="entry-meta clearfix">
+          				<span>By <a href="{{ article.url }}" class="author-title">
+          					 {{ article.author }}
+          				</a> </span>
+          				<span> in <a href="{{blog.url}}">{{blog.title}} </a></span>
+          				<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+          					<i class="fa fa-clock-o"></i> {{ article.published_at | date: "%b %d, %Y" }}
+          				</time>
+          				<span><i class="fa fa-comment-o"></i><a href="">{{article.comments_count}} Comment</a> </span>
+          			</div>
+  				</div>
+				
+              	<div class="inner">
+              		<div class="inner-content clearfix">
+              			<div class="entry-content">
+              				{% if article.excerpt.size > 0 %}
+    							{{ article.excerpt }}
+			              	{% else %}
+			                	<p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+			              	{% endif %}
+			              	<div class="link-readmore">
+								<a href="{{ article.url }}" class="btn">Read more </a>
+							</div>
+              			</div>
+              		</div>
+              	</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

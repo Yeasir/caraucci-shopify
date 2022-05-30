@@ -1,0 +1,116 @@
+{% if settings.banner_home_enable %}
+	{% if settings.banner_home_style == "style_1" %}
+<img src="{{ settings.banner_home_image_1 | img_url: 'master' }}" alt="{{ settings.banner_home_title_1 | strip_html }}"
+     class="img-responsive">
+
+
+{% if settings.banner_mode_style == "light_mode"  %}
+    {% assign banner_background_color = '#e8ebeb' %}
+    {% if settings.enable_banner_background == true  %}
+        {% assign banner_background_color = settings.banner_background_color %}
+    {% else %}
+        {% assign banner_background_color = '#e8ebeb' %}
+    {% endif %}
+<div class="collection-info-wrap" style="background:{{banner_background_color}}">
+    <div class="collection-info-inner">
+    <div class="collection-info">
+    <h2 style="color: #1A1C1C">
+        <span>{{ settings.banner_home_title_1 }}</span>
+    </h2>
+
+        <a href="{{ settings.banner_home_link_btn_url_1 }}"
+           class="btn sbtn">{{ settings.banner_home_link_btn_text_1 }} </a>
+
+        <p style="color: #1A1C1C">{{ settings.banner_home_subtitle_1 }}</p>
+        </div>
+
+        </div>
+        </div>
+	{% elsif settings.banner_mode_style == "dark_mode"  %}
+    {% assign banner_background_color = '#1A1C1C' %}
+    {% if settings.enable_banner_background == true  %}
+        {% assign banner_background_color = settings.banner_background_color %}
+    {% else %}
+        {% assign banner_background_color = '#1A1C1C' %}
+    {% endif %}
+	<div class="collection-info-wrap" style="background: {{ banner_background_color}}">
+		<div class="collection-info-inner">
+			<div class="collection-info">
+				<h2 style="color: #e8ebeb">
+					<span>{{ settings.banner_home_title_1 }}</span>
+				</h2>
+				<a href="{{ settings.banner_home_link_btn_url_1 }}"
+				   class="btn2 sbtn-light">{{ settings.banner_home_link_btn_text_1 }}</a>
+
+				<p style="color: #e8ebeb">{{ settings.banner_home_subtitle_1 }}</p>
+			</div>
+
+		</div>
+	</div>
+    {% else %}
+        {% assign banner_background_color = '#e8ebeb' %}
+        {% if settings.enable_banner_background == true  %}
+            {% assign banner_background_color = settings.banner_background_color %}
+        {% else %}
+            {% assign banner_background_color = '#e8ebeb' %}
+        {% endif %}
+        <div class="collection-info-wrap" style="background: {{ banner_background_color }}">
+            <div class="collection-info-inner">
+                <div class="collection-info">
+                    <h2 style="color: red">
+                        <span>{{ settings.banner_home_title_1 }}</span>
+                    </h2>
+
+                    <a href="{{ settings.banner_home_link_btn_url_1 }}"
+                       class="btn sbtn">{{ settings.banner_home_link_btn_text_1 }} </a>
+
+                    <p style="color: #1A1C1C">{{ settings.banner_home_subtitle_1 }}</p>
+                </div>
+
+            </div>
+        </div>
+
+
+        {% endif %}
+
+        {% elsif settings.banner_home_style == "style_2" %}
+        <div class="row ">
+            <div class="col-xs-3 ">
+                <div class="collection">
+                    <div class="collection-item">
+                        <a href="#"><img class="img-responsive"
+                                         src="{{ settings.banner_home_image_1 | img_url: 'master' }}"
+                                         alt="Stylecaravan"></a>
+                        <div class="collection-description">
+                            <h4>{{ settings.banner_home_title_1 }}</h4>
+                            <span>from</span> <strong>{{ settings.banner_home_subtitle_1 }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 ">
+                <div class="collection">
+                    <div class="collection-item">
+                        <img class="img-responsive" src="{{ 'banner_home_image_2.png' | asset_url }}" alt="">
+                        <div class="collection-description text-center">
+                            <h3>{{ settings.banner_home_title_2 }}</h3>
+                            <h2>{{ settings.banner_home_subtitle_2 }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 ">
+                <div class="collection">
+                    <div class="collection-item">
+                        <a href="#"><img class="img-responsive" src="{{ 'banner_home_image_3.png' | asset_url }}"
+                                         alt=""></a>
+                        <div class="collection-description text-right">
+                            <h4>{{ settings.banner_home_title_3 }}</h4>
+                            <span>from</span> <strong>{{ settings.banner_home_subtitle_3 }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

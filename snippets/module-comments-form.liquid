@@ -1,0 +1,35 @@
+{% form 'new_comment', article %}
+
+    <h4 class="heading">{{ 'blogs.comments.title' | t }}</h4>
+
+    {% if blog.moderated? %}
+      	<p>{{ 'blogs.comments.moderated' | t }}</p>
+    {% endif %}
+
+    {{ form.errors | default_errors }}
+
+    <div class="comment-form">
+    	<div class="row">
+    		<div class="col-md-6">
+    			<div class="form-group">
+    				<label for="CommentAuthor" class="label--hidden">{{ 'blogs.comments.name' | t }}</label>
+    				<input class="form-control{% if form.errors contains "author" %} error{% endif %}" type="text" name="comment[author]" placeholder="{{ 'blogs.comments.name' | t }}" id="CommentAuthor" value="{{ form.author }}" autocapitalize="words">
+    			</div>
+    		</div>
+    		<div class="col-md-6">
+    			<div class="form-group">
+    				<label for="CommentEmail" class="label--hidden">{{ 'blogs.comments.email' | t }}</label>
+        			<input class="form-control {% if form.errors contains "email" %} error{% endif %}" type="email" name="comment[email]" placeholder="{{ 'blogs.comments.email' | t }}" id="CommentEmail" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+    			</div>
+    		</div>
+    	</div>
+    	<div class="form-group">
+    		<label for="CommentBody" class="label--hidden">{{ 'blogs.comments.message' | t }}</label>
+        	<textarea class="form-control {% if form.errors contains "body" %} error{% endif %}" name="comment[body]" id="CommentBody" rows="8" placeholder="{{ 'blogs.comments.message' | t }}">{{ form.body }}</textarea>
+    	</div>
+    	<div class="form-submit">
+    		<input type="submit" class="button submit" value="{{ 'blogs.comments.post' | t }}">
+    	</div>
+    </div>
+
+{% endform %}

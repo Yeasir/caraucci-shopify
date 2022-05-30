@@ -1,0 +1,36 @@
+<h3 class="widget-title"><span>{{ title }}</span></h3>
+<div class="menu-footer-3-container">
+	{% unless linklists[tags].empty? %}
+		{% for lvl1_link in linklists[tags].links %}
+			{% assign lvl1_link_handle = lvl1_link.handle %}			
+			{% assign lvl2_links = linklists[lvl1_link_handle].links %}
+			{% if lvl2_links != blank %}
+				<a href="{{ lvl1_link.url }}">
+					<span>{{ lvl1_link.title }}</span>
+				</a>
+				{% for lvl2_link in lvl2_links %}
+					{% assign lvl2_link_handle = lvl2_link.handle %}			
+					{% assign lvl3_links = linklists[lvl2_link_handle].links %}
+					{% if lvl3_links != blank %}
+						<a href="{{ lvl2_link.url }}">
+							<span>{{ lvl2_link.title }}</span>
+						</a>
+						{% for lvl3_link in lvl3_links %}
+							<a href="{{ lvl3_link.url }}">
+								<span>{{ lvl3_link.title }}</span>
+							</a>
+						{% endfor %}
+					{% else %}
+						<a href="{{ lvl2_link.url }}">
+							<span>{{ lvl2_link.title }}</span>
+						</a>
+					{% endif %}
+				{% endfor %}
+		  	{% else %}
+				<a href="{{ lvl1_link.url }}">
+					<span>{{ lvl1_link.title }}</span>
+				</a>
+		  	{% endif %}
+		{% endfor %}
+	{% endunless %}
+</div>

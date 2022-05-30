@@ -1,0 +1,25 @@
+{% comment %}
+	require collection
+{% endcomment %}
+{% case column %}
+    {% when '2' %}
+   		{% assign class-column = 'col-sm-6' %}
+   	{% when '3' %}
+   		{% assign class-column = 'col-sm-4' %}
+   	{% when '4' %}
+   		{% assign class-column = 'col-md-3 col-sm-6' %}
+   	{% when '5' %}
+   		{% assign class-column = 'col-md-3 col-sm-6' %}
+   	{% when '6' %}
+   		{% assign class-column = 'col-sm-4 col-md-2' %}
+    {% else %}
+		{% assign class-column = 'col-md-3 col-sm-6' %}    
+{% endcase %}
+
+<div class="row product-column-{{ column }}">
+{% for product in collection.products limit:limit %}
+	<div class="{{ class-column }}">
+		{% include "product-archive-horizontal-item" %}
+	</div>
+{% endfor %}
+</div>

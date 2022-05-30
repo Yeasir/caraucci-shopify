@@ -1,0 +1,76 @@
+{% if settings.module_product_sidebar_category_list != blank %}
+	<div class="widget widget-product-categories categories-list clearfix">
+		<div class="widget-inner">
+			<h3 class="widget-title">
+				<span>{{ settings.module_product_sidebar_category_list_title }}</span>
+			</h3>
+			<ul>
+				{% unless linklists[settings.module_product_sidebar_category_list].empty? %}
+					{% for lvl1_link in linklists[settings.module_product_sidebar_category_list].links %}
+						{% assign lvl1_link_handle = lvl1_link.handle %}			
+						{% assign lvl2_links = linklists[lvl1_link_handle].links %}
+						{% if lvl2_links != blank %}
+						    <li{% if lvl1_link.active %} class="active"{% endif %}>
+								<a href="{{ lvl1_link.url }}">
+									<span>{{ lvl1_link.title }}</span>
+								</a>
+								<span class="parent{% if lvl1_link.active %} show{% endif %}"></span>
+								<ul class="children{% if lvl1_link.active %} open{% endif %}">
+									{% for lvl2_link in lvl2_links %}
+										{% assign lvl2_link_handle = lvl2_link.handle %}			
+										{% assign lvl3_links = linklists[lvl2_link_handle].links %}
+										{% if lvl3_links != blank %}
+											<li{% if lvl2_link.active %} class="active"{% endif %}>
+												<a href="{{ lvl2_link.url }}">
+													<span>{{ lvl2_link.title }}</span>
+												</a>
+												<span class="parent"></span>
+												<ul class="children">
+													{% for lvl3_link in lvl3_links %}
+														<li>
+															<a href="{{ lvl3_link.url }}">
+																<span>{{ lvl3_link.title }}</span>
+															</a>
+														</li>
+													{% endfor %}
+												</ul>
+											</li>
+										{% else %}
+											<li{% if lvl2_link.active %} class="active"{% endif %} >
+												<a href="{{ lvl2_link.url }}">
+													<span>{{ lvl2_link.title }}</span>
+												</a>
+											</li>
+										{% endif %}
+									{% endfor %}
+								</ul>
+						    </li>	
+					  	{% else %}
+							<li{% if lvl1_link.active %} class="active"{% endif %}>
+								<a href="{{ lvl1_link.url }}">
+									<span>{{ lvl1_link.title }}</span>
+								</a>
+							</li>
+					  	{% endif %}
+					{% endfor %}
+				{% endunless %}
+			</ul>
+		</div>
+	</div>
+{% endif %}
+
+<script>
+	jQuery(document).ready(function($) {
+		$('.widget-product-categories').on('click', '.parent', function(event) {
+			event.preventDefault();
+			var $this = $(this);
+			if($this.hasClass('show')){
+				$this.removeClass('show');
+				$this.next().slideUp(400);
+			}else{
+				$this.addClass('show');
+				$this.next().slideDown(400);
+			}
+		});
+	});
+</script>

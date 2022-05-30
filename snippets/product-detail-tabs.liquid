@@ -1,0 +1,23 @@
+<div class="product-tabs">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab-description" data-toggle="tab">Description</a>
+		</li>
+		<li>
+			<a href="#tab-reviews" data-toggle="tab">Reviews</a>
+		</li>
+	</ul>
+
+  	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab-description">
+			{{ product.description }}
+		</div>
+		<div class="tab-pane " id="tab-reviews">
+			<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+		</div>
+	</div>
+</div>
+
+

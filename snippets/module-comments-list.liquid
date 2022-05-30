@@ -1,0 +1,42 @@
+{% if number_of_comments > 0 %}
+<div id="comments" class="is-commentlists	">
+	
+		{% assign comment_heading = 'Comment' %}
+		{% if number_of_comments > 1 %}
+			{% assign comment_heading = 'Comments' %}
+		{% endif %}
+		<h3 class="heading">{{ number_of_comments }} {{ comment_heading }}</h3>
+		
+	
+  	{% if comment and comment.created_at %}
+    <p class="note form-success">
+      {% if blog.moderated? %}
+        {{ 'blogs.comments.success_moderated' | t }}
+      {% else %}
+        {{ 'blogs.comments.success' | t }}
+      {% endif %}
+    </p>
+  	{% endif %}
+  	
+    <ol class="commentlists list-unstyled">
+		{% if comment and comment.created_at %}
+		<li id="{{ comment.id }}" class="comment-box first{% if article.comments_count == 0 %} last{% endif %}">
+			{% include 'module-comments-item' %}
+		</li>
+		{% endif %}
+		{% for comment in article.comments %}
+		<li id="{{ comment.id }}" class="comment{% unless number_of_comments > article.comments_count %}{% if forloop.first %} first{% endif %}{% endunless %}{% if forloop.last %} last {% endif %}">
+			{% include 'module-comments-item' %}
+		</li>
+		{% endfor %}
+    </ol>
+
+    {% if paginate.pages > 1 %}
+		<div class="text-center">
+			{% include 'module-pagination' %}
+		</div>
+    {% endif %}
+
+
+</div>
+{% endif %}

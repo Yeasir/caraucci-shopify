@@ -1,0 +1,24 @@
+<div class="widget widget-product-vertical widget-recent-product clearfix hidden">
+	<div class="widget-inner">
+		<h3 class="widget-title">
+			<span>Recently viewed products</span>
+		</h3>
+		<ul class="product_list_widget">
+			
+		</ul>
+	</div>
+</div>
+<script id="recent-product-template" type="text/template">
+	<li>
+		<div class="image pull-left">
+	        <img src="<%= image %>" alt="<%= title %>">
+		</div>
+		<div class="inner-content">
+			<a href="<%= url %>" title="<%= title %>" class="title"><span><%= title %></span></a>
+			<div class="star-rating">
+				<span class="shopify-product-reviews-badge" data-id="<%= product_id %>"></span>
+			</div>
+			<span class="amount"><%= price %></span>
+		</div>
+	</li>
+</script>

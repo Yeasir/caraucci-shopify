@@ -1,0 +1,98 @@
+{% assign products_per_row = settings.product_collection_number_of_column %}
+{% assign rows = settings.product_collection_number_of_row %}
+{% assign total_products = products_per_row | times: rows %}
+
+
+{% case products_per_row %}
+  	{% when '2' %}
+    	{% assign grid_item_width = 'col-sm-6' %}
+  	{% when '3' %}
+    	{% assign grid_item_width = 'col-sm-4' %}
+  	{% when '4' %}
+    	{% assign grid_item_width = 'col-sm-3' %}
+  	{% when '5' %}
+    	{% assign grid_item_width = 'col-sm-20' %}
+{% endcase %}
+
+{% paginate collection.products by total_products %}
+	{% assign breadcrumb_class = 'shop-breadcrumb' %}
+	{% include 'module-breadcrumb-title' %}
+	
+	<div id="is-content" class="is-content is-product is-collection" data-is-full-width="true">
+
+		{% if collection.image %}
+			<div class="section-element slider-1 container">
+				<div class="home-jumbo-wrap" style="padding-top: 0;">
+					<div class="jumbo-item left" style="background-image: url('{{ collection.image | img_url: 'master' }}'); height: auto;">
+						<a href="{{ collection.url }}" title="{{ collection.title }}">
+							<img src="{{ collection.image | img_url: 'master' }}" alt="{{ collection.title }}" title="https://stylecaravan.com/collections/tops-tunics">
+						</a>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="content-area container">
+			<div class="is-row-full-width"></div>
+			<div class="row">
+				
+				<div class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 clearfix site-main is-main-left-sidebar">
+					{% if collection.description != blank %}
+						<div class="rte rte--header">
+							<div class="collect-title">{{ collection.title }}</div>
+							<!--<div class="colect-descr">{{ collection.description }}</div> -->
+						</div>
+
+					{% endif %}
+
+					<div class="catalog-ordering clearfix">
+      					{% include 'product-archive-collection-sorting' %}
+					</div> <!-- End .catalog-ordering -->
+
+					<div class="products">
+						<div class="row product-column-{{ products_per_row }}">
+							{% for product in collection.products %}
+								<div class="{{ grid_item_width }} product-container" data-price="{{ product.price | money_without_currency }}">
+									{% include "product-archive-horizontal-item" %}
+								</div>
+							{% else %}
+								<div class="col-sm-12">
+						        	<p><span>{{ 'collections.general.no_matches' | t }}</span></p>
+						      	</div>
+							{% endfor %}
+						</div>
+						<div class="collection_wrapper clearfix">
+							<div class="collection_wrapper_inner">
+								<ul class="collection_list">
+									<li class="collection_item">
+										<div class="collection_title_b">
+                                            {{ collection.title }}
+										</div>
+										<div class="collection_desc_b">
+                                            {{ collection.description }}
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						{% if paginate.pages > 1 %}
+						  	<nav class="paging">
+						    	{% include 'module-pagination' %}
+						    </nav>
+						{% endif %}
+					</div> <!-- end .products -->
+				</div>
+				<div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 is-sidebar">
+					{% include 'module-sidebar-product-product' %}
+				</div>
+				
+			</div>
+				
+		</div>
+	</div>
+
+{% endpaginate %}
+
+
+
+

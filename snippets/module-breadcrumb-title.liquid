@@ -1,0 +1,20 @@
+<nav class="is-breadcrumb{% if breadcrumb_class != blank %} {{ breadcrumb_class }}{% endif %}" role="navigation" aria-label="breadcrumbs">
+	<div class=" box-breadcrumbs container">
+		<div class="box-breadcrumb-inner">
+			<h3 class="breadcrumb-title">
+
+				{% if template == 'cart' %}
+					Bag
+				{% elsif template contains 'search' %}
+					{{ search.terms }}
+				{% elsif template contains 'login' %}
+					{{ 'customer.login.title' | t }}
+				{% else %}
+					{{ page_title }}
+				{% endif %}
+
+			</h3>
+			<div class="back-link"><a href="{% if product.collections.first.url %}{{ product.collections.first.url }}{% endif %}" title="Back" class="sbtn-light">Back</a></div>
+		</div>
+	</div>
+</nav>

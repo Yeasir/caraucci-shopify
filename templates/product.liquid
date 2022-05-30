@@ -1,0 +1,231 @@
+{% assign breadcrumb_class = 'shop-breadcrumb' %}
+{% include 'module-breadcrumb-title' %}
+
+<div id="is-content" class="is-content is-product">
+	<div class="content-area">
+		<div class="single-product container" itemscope itemtype="http://schema.org/Product">
+			<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+			<meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+			<div class="row">
+				<div class="col-sm-5 single-image">
+					<h1 itemprop="name" class="product_title entry-title">{{ product.title }}</h1>
+					<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+						<p class="price clearfix">
+                            {% if product.compare_at_price > product.price %}
+								<del id="ComparePrice" class="product-single__sale-price">
+									<span class="amount">{{ product.compare_at_price_max | money }}</span>
+								</del>
+                            {% endif %}
+							<span id="ProductPrice" class="product-single__price">
+				              	<span class="amount price-new" itemprop="price">{{ product.price | money }}</span>
+				            </span>
+						</p>
+						<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+						<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+					</div>
+					<div class="soldout-msg">
+						SOLD OUT
+					</div>
+
+
+
+
+					<div class="image">
+						{% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+
+
+					<div  id="sync1" class="owl-carousel owl-theme">
+											{% for image in product.images %}
+
+												<a data-image-id="{{ image.id }}" data-image="{{ image.src | img_url: '1024x1024' }}" href="{{ image.src | img_url: '1024x1024' }}" data-zoom-image="{{ image.src | img_url: '1024x1024' }}" href="{{ image.src | img_url: '1024x1024' }}" class="product_thumbnail_image product-single__thumbnail" data-change-variant="{{ image.variants.first.id }}" >
+			                      		
+										  <img class='feature-img' src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}"
+										   data-zoom-image="{{ image.src | img_url: '1024x1024' }}">
+			                    	</a>
+
+							{% comment %} <img class="product_featured_image" src="{{ image.src | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg" data-zoom-image="{{ image.src | img_url: '1024x1024' }}" data-image-id="{{ image.id }}"> {% endcomment %}
+													{% comment %} <img src="{{ image.src | img_url: '1024x1024' }}" id="ProductPhotoImg" data-zoom-image="{{ featured_image | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}"> {% endcomment %}
+																		
+											{% endfor %}
+										</div>
+
+
+					</div>
+
+					
+					
+
+					<div class="thumbnails owl-container" id="single_product_thumbnailsfff">
+              			<ul id="sync2"  class="owl-theme owl-carousel">
+			                {% for image in product.images %}
+			                  
+			                    	<a data-image-id="{{ image.id }}" data-image="{{ image.src | img_url: '1024x1024' }}" href="{{ image.src | img_url: '1024x1024' }}" data-zoom-image="{{ image.src | img_url: '1024x1024' }}" href="{{ image.src | img_url: '1024x1024' }}" class="product_thumbnail_image product-single__thumbnail" data-change-variant="{{ image.variants.first.id }}">
+			                      		<img src="{{ image.src | img_url: 'medium' }}" alt="{{ image.alt | escape }}">
+			                    	</a>
+			                  	
+			                {% endfor %}
+		              	</ul>
+		            </div>
+				</div> <!-- End Product Image -->
+				<div class="col-sm-7 summary entry-summary">
+					<h1 itemprop="name" class="product_title entry-title">{{ product.title }}</h1>
+					<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+						<p class="price clearfix">
+							{% if product.compare_at_price > product.price %}
+				              	<del id="ComparePrice" class="product-single__sale-price">
+				                	<span class="amount">{{ product.compare_at_price_max | money }}</span>
+				              	</del>
+				            {% endif %}
+				            <span id="ProductPrice" class="product-single__price">
+				              	<span class="amount price-new" itemprop="price">{{ product.price | money }}</span>
+				            </span>
+				        </p>
+						<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+						<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+					</div>
+					{% comment %}
+					<div itemprop="description">
+						{{ product.description | strip_html | truncatewords: 35 }}
+					</div>
+					{% endcomment %}
+
+					<form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+						<div id="ymp_select_wrap"></div>
+						<select name="id" id="productSelect" class="product-single__variants hidden">
+						{% for variant in product.variants %}
+							{% if variant.available %}
+								<option data-sku="{{ variant.sku }}" value="{{ variant.id }}" data-price="{{ variant.price | money }}" data-targetv="{{ variant.title }}">
+									{{ variant.title }} - {{ variant.price | money_with_currency }}
+								</option>
+							{% else %}
+								<option disabled="disabled">
+									{{ variant.title }} - {{ 'products.product.sold_out' | t }}
+								</option>
+							{% endif %}
+						{% endfor %}
+						</select>
+
+						{% if product.available and product.variants.size > 1 %}
+							{% for option in product.options %}
+								{% include 'module-swatches-template' with option %}
+							{% endfor %}
+						{% endif %}
+
+						<div class="swatch-qty clearfix">
+							<div class="quantity">
+								<input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector input-text qty text">
+							</div>
+							<button type="submit" name="add" id="AddToCart" class="sbtn sbtn-large single_add_to_cart_button ">
+								<span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+							</button>
+
+							<div style="display: none" id="out_stock_txt">Out of Stock</div>
+
+							{% assign wishlist_type = "btn" %}
+							{% include "module-wishlist-template" %}
+						</div>
+						<br>
+
+						<hr>
+						<div class="size-chart-btn-wrap">
+							<button id="size_chart_toggle" class="sbtn-light">
+								<i class="fa fa-angle-right"></i>
+								<span class="text">Size Chart</span>
+							</button>
+						</div>
+
+						<hr>
+
+                        {% include 'product-detail-collapse' %}
+						<hr>
+					</form>
+
+                  {% comment %} 
+                  <div class="swatch-category clearfix">
+                    <h3 class="header"><i class="icon-share"></i> Share this Product </h3>
+                    {% include 'addthis' %}
+                    {% endcomment %}
+						{% comment %}
+						<div class="social-icons">
+							{% include "module-social-account-template" %}
+						</div>
+						<script>
+							$(document).ready(function(){
+							    $(".header").click(function(){
+							        $(".social-icons").toggle();
+							    });
+							});
+						</script>
+						{% endcomment %}
+                    {% comment %} 
+                  </div>
+                  {% endcomment %}
+                  
+                  <div class="ssw-fb-sha">
+                    {% capture the_snippet_fave %}{% render 'socialshopwave-widget-fave' %}{% endcapture %}
+                    {% unless the_snippet_fave contains 'Liquid error' %}
+                    {{ the_snippet_fave }}
+                    {% endunless %}
+
+                    {% capture the_snippet_share %}
+                    {% render  'ssw-widget-share-links' with 1 %}
+                    {% endcapture %}
+                    {% unless the_snippet_share contains 'Liquid error' %}
+                    {{ the_snippet_share }}
+                    {% endunless %}
+                  </div>
+
+				</div> <!-- End Product summary -->
+
+			</div>
+            <hr>
+            {% capture the_snippet_reviews %}{% render 'socialshopwave-widget-recommends' with 1 %}{% endcapture %}
+            {% unless the_snippet_reviews contains 'Liquid error' %}
+            {{ the_snippet_reviews }}
+            {% endunless %}
+			<hr>
+				{% include 'product-detail-related-products' %}
+
+		</div> <!-- End itemscope Product -->
+	</div>
+</div>
+
+<script type="text/javascript">
+	var zoomOptions = {
+        responsize: true,
+        gallery:'single_product_thumbnails',
+        galleryActiveClass: 'active',
+    	containLensZoom: true,
+        zoomType: "{{ settings.module_zoom_type }}",
+        {% if settings.module_zoom_enable_scroll_zoom %}scrollZoom: true,{% endif %}
+        {% if settings.module_zoom_enable_tint and settings.module_zoom_type == "window" %}
+        	tint: true,
+        	tintColor: "{{ settings.module_zoom_tint_color }}",
+        	tintOpacity: "{{ settings.module_zoom_tint_opacity }}",
+        {% endif %}
+    	lensShape: "{{ settings.module_zoom_lens_shape }}",
+    	lensColour: "{{ settings.module_zoom_lens_color }}",
+    	lensOpacity: "{{ settings.module_zoom_lens_opacity }}",
+    	lensBorder: "{{ settings.module_zoom_lens_border_width }}",
+        zoomWindowWidth: "{{ settings.module_zoom_window_width }}",
+        zoomWindowHeight: "{{ settings.module_zoom_window_height }}",
+        borderColour: "{{ settings.module_zoom_window_border_color }}"
+    };
+    var mobileZoomType = "{{ settings.module_zoom_type_mobile }}";
+    var defaultZoomType = "{{ settings.module_zoom_type }}";
+
+    var productJson = {{ product | json }};
+    var productAvailable = {{ product.available }};
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    var productOptionsSize = {{ product.options.size }};
+    var productOptionsTitle = "{{ product.options.first | escape }}";
+
+    // Hide selectors if we only have 1 variant and its title contains 'Default'.
+    var variantSize = {{ product.variants.size }};
+    var variantTitle = "{{ product.variants.first.title }}";
+
+    
+</script>
+
+{% include 'module-size-chart-popup' %}

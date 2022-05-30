@@ -1,0 +1,14 @@
+{% if settings.module_flickr_id != blank %}
+	<div class="widget clearfix widget_flickr">
+		<div class="widget-inner">
+			{% if settings.module_flickr_title != blank %}
+			<h3 class="widget-title">
+				{{ settings.module_flickr_title }}
+			</h3>
+			{% endif %}
+			<div class='flickr-gallery'>			
+				<script type='text/javascript' src='//www.flickr.com/badge_code_v2.gne?count={{ settings.module_flickr_number }}{% if settings.module_flickr_menthod != blank %}&amp;display={{ settings.module_flickr_menthod }}{% endif %}&amp;size=s&amp;layout=x&amp;source={{ settings.module_flickr_type }}&amp;{{ settings.module_flickr_type }}={{ settings.module_flickr_id }}'></script>
+			</div>
+		</div>
+	</div>
+{% endif %}

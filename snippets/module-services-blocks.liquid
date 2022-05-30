@@ -1,0 +1,30 @@
+{% if settings.services_blocks_enable %}
+	<div class="row">
+		<div class="services-container">
+			{% assign number_of_column = 0 %}
+			{% for i in (1..5) %}
+				{% capture enable %}service_block_{{ i }}_show{% endcapture %}
+				{% if settings[enable] %}{% assign number_of_column = number_of_column | plus:1 %}{% endif %}
+			{% endfor %}
+
+			{% for i in (1..5) %}
+				{% capture enable %}service_block_{{ i }}_show{% endcapture %}
+				{% capture color %}service_block_{{ i }}_color{% endcapture %}
+				{% capture icon %}service_block_{{ i }}_icon{% endcapture %}
+				{% capture title %}service_block_{{ i }}_title{% endcapture %}
+				{% capture content %}service_block_{{ i }}_content{% endcapture %}
+
+				{% if settings[enable] %}
+					<div class="{% if number_of_column == 1 %}col-sm-12{% elsif number_of_column == 2 %}col-sm-6{% elsif number_of_column == 3 %}col-sm-4{% elsif number_of_column == 4 %}col-sm-3{% elsif number_of_column == 5 %}service-col-5{% else %}hidden{% endif %}">
+						<div class="is-service">
+							<span class="service-icon">
+								<i class="{{ settings[icon] }}"></i>
+							</span>
+							<h6>{{ settings[title] }}</h6>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+{% endif %}

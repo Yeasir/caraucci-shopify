@@ -1,0 +1,48 @@
+{% comment %}
+  Remember to add wishlist_type before calling this file
+{% endcomment %}
+
+{% if settings.module_enable_wishlist %}
+    {% assign value = product.id %}
+    {% capture productID %}{{ product.id }}{% endcapture %}
+
+    {% for tag in customer.tags %}
+      {% capture tagID %}{{ tag }}{% endcapture %}
+      {% if tagID contains productID %}
+        {% capture value %}x{{ tagID }}{% endcapture %}
+      {% endif %}
+      {% if value.size == 0 %}{% assign value = productID %}{% endif %}
+    {% endfor %}
+
+    {% unless value.size == 0 %}
+      {% capture check %}{{ value.size | minus:productID.size | money_without_currency | times:100 | divided_by:2 }}{% endcapture %}
+      {% assign check = check | split:'.' %}
+      {% if check[1] contains "5" %}
+        {% assign display = false %}
+      {% else %}
+        {% assign display = true %}
+      {% endif %}
+    {% endunless %}
+
+    {% if display %}
+      {% if wishlist_type == "btn" %}
+        <a href="{% if customer %}#{% else %}/pages/{{ settings.module_select_wishlist_page }}{% endif %}" class="btn whishlist add_to_wishlist_button" data-button="button" data-wishlist-link="/pages/{{ settings.module_select_wishlist_page }}" data-customer-email="{{ customer.email }}" data-customer-tags="{{ value }}">
+          <i class="icon-heart"></i>
+        </a>
+      {% elsif wishlist_type == "text" %}
+        <span class="wishlist-text">
+          <a href="{% if customer %}#{% else %}/pages/{{ settings.module_select_wishlist_page }}{% endif %}" class="add_to_wishlist_button" data-button="text" data-wishlist-link="/pages/{{ settings.module_select_wishlist_page }}" data-customer-email="{{ customer.email }}" data-customer-tags="{{ value }}">
+            Add to wishlist
+          </a>
+        </span>
+      {% endif %}
+    {% else %}
+      {% if wishlist_type == "btn" %}
+        <a href="/pages/{{ settings.module_select_wishlist_page }}" class="btn added whishlist">
+          <i class="icon-heart"></i>
+        </a>
+      {% elsif wishlist_type == "text" %}
+        <span class="wishlist-text">The product is already in the wishlist! <a href="/pages/{{ settings.module_select_wishlist_page }}">Browse Wishlist</a></span>
+      {% endif %}
+    {% endif %}
+{% endif %}

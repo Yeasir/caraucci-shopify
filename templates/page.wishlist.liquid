@@ -1,0 +1,108 @@
+{% assign breadcrumb_class = 'wishlist-breadcrumb' %}
+{% include 'module-breadcrumb-title' %}
+
+<div id="is-content" class="is-content">
+    <div class="content-area">
+      <div class="container">
+        {% if customer %}
+          <table class="shop_table cart wishlist_table">
+            <thead>
+              <tr>
+                <th class="product-name">
+                  <span class="nobr">Product Name</span>
+                </th>
+                <th class="product-stock-status">
+                  <span class="nobr">Stock Status</span>
+                </th>
+                <th class="product-add-to-cart"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% assign wish_list_active = false %}
+              {% for tag in customer.tags %}
+                {% assign the_test = 'inspius' %}
+                {% capture tag_id %}{{ tag }}{% endcapture %}
+                {% assign tag_size = tag_id.size %}
+                {% for tag in customer.tags %}
+                  {% capture cur_tag %}{{ tag }}{% endcapture %}
+                  {% if cur_tag contains tag_id %}
+                    {% assign difference = tag_size | minus:cur_tag.size %}
+                    {% if difference == 0 %}
+                      {% assign the_test = tag_id %}
+                    {% else %}
+                      {% assign the_test = 'inspius' %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+                {% for collection in collections %}
+                  {% paginate collection.products by collection.all_products_count %}
+                    {% for product in collection.products %}
+                        {% capture product_id %}{{ product.id }}{% endcapture %}
+                        {% unless used contains product_id %}
+                          {% capture diff %}{{ tag_size | minus:product_id.size | money_without_currency | times:100 | divided_by:2 }}{% endcapture %}
+                          {% assign check = diff | split:'.' %}
+
+                          {% if check[1] contains '5' %}
+                            {% assign display = false %}
+                          {% else %}
+                            {% assign display = true %}
+                          {% endif %}
+
+                          {% if display and the_test contains product_id %}
+                            {% assign wish_list_active = true %}
+                            <tr class="wishlist-item">
+                              <td class="product-name">
+                                <a href="#" class="remove-from-wishlist-btn" data-customer-email="{{ customer.email }}" data-customer-tags="x{{ tag_id }}">x</a>
+                                <a href="{{ product.url }}" class="">
+                                  <img src="{{ product | img_url: 'compact' }}"  alt="{{ product.title | escape }}" />
+                                </a>
+                                <a href="{{ product.url }}">
+                                  {{ product.title }}
+                                </a>                                
+                              </td>
+                              <td class="product-stock-status">
+                                <span class="wishlist-in-stock">
+                                  {% if product.available %}
+                                    <span class="wishlist-in-stock">In Stock</span>
+                                  {% else %}
+                                    <span class="wishlist-out-of-stock">Out of stock</span>
+                                  {% endif %}
+                                </span>
+                              </td>
+                              <td class="product-add-to-cart">
+                                <div class="product-block hidden">
+                                  <div class="image">
+                                    <img src="{{ product | img_url: 'compact' }}"  alt="{{ product.title | escape }}" />
+                                  </div>
+                                </div>
+                                {% if product.variants.size <= 1 %}
+                                  <a href="#" class="button btn-cart wishlist_add_to_cart_button" data-product-id="{{ product.selected_or_first_available_variant.id }}" data-customer-email="{{ customer.email }}" data-customer-tags="x{{ tag_id }}">Add to cart</a>
+                                {% else %}
+                                  <a href="{{ product.url }}" class="button">Select options</a>
+                                {% endif %}
+                              </td>
+                            </tr>                            
+                            {% capture used %}{{ product_id }} {{ used }}{% endcapture %}
+                          {% endif %}
+                        {% endunless %}
+                    {% endfor %}
+                  {% endpaginate %}
+                {% endfor %}
+              {% endfor %}
+
+              <tr class="empty-product{% if wish_list_active %} hidden{% endif %}">
+                <td colspan="4" class="wishlist-empty">No products were added to the wishlist</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr><td colspan="4"></td></tr>
+            </tfoot>
+          </table>
+        {% else %}
+          <div class="alert alert-warning">To create a wish list you must <a href='/account/login'>sign in</a> or <a href='/account/register'>create an account</a>.</p>
+        {% endif %}
+      </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div id="is-off-canvas" class="uk-offcanvas is-megamenu">
+	<div class="uk-offcanvas-bar">
+		<ul id="main-menu-offcanvas" class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+			{% for lvl1_link in linklists.main-menu.links %}
+				{% assign lvl1_link_handle = lvl1_link.handle %}			
+				{% assign lvl2_links = linklists[lvl1_link_handle].links %}
+				{% if lvl2_links != blank %}
+				    <li class="menu-item uk-parent{% if lvl1_link.active %} uk-active uk-open{% endif %}" aria-haspopup="true">
+						<a href="{{ lvl1_link.url }}">
+							<span>{{ lvl1_link.title }}</span>
+						</a>
+						<ul class="uk-nav-sub">
+							{% for lvl2_link in lvl2_links %}
+								{% assign lvl2_link_handle = lvl2_link.handle %}			
+								{% assign lvl3_links = linklists[lvl2_link_handle].links %}
+								{% if lvl3_links != blank %}
+									<li class="menu-item uk-parent{% if lvl2_link.active %} uk-active uk-open{% endif %}" aria-haspopup="true">
+										<a href="{{ lvl2_link.url }}">
+											<span>{{ lvl2_link.title }}</span>
+										</a>
+										<ul class="uk-nav-sub">
+											{% for lvl3_link in lvl3_links %}
+												<li {% if lvl3_link.active %}class="uk-active"{% endif %}>
+													<a href="{{ lvl3_link.url }}">
+														<span>{{ lvl3_link.title }}</span>
+													</a>
+												</li>
+											{% endfor %}
+										</ul>
+									</li>
+								{% else %}
+									<li class="menu-item{% if link.active %} uk-active{% endif %}">
+										<a href="{{ lvl2_link.url }}">
+											<span>{{ lvl2_link.title }}</span>
+										</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+				    </li>	
+			  	{% else %}
+					<li class="menu-item{% if link.active %} uk-active{% endif %}">
+						<a href="{{ lvl1_link.url }}">
+							<span>{{ lvl1_link.title }}</span>
+						</a>
+					</li>
+			  	{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</div>

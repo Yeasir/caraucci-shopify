@@ -1,0 +1,16 @@
+{% comment %}
+	require a module-single-menu to display
+
+	use include "module-single-menu-no-header" with "abc" to call
+{% endcomment %}
+
+{% if module-single-menu-no-header != blank %}
+	{% assign lists = linklists[module-single-menu-no-header] %}
+	{% unless lists.empty? %}
+		<ul class="menu clearfix">
+			{% for link in lists.links %}
+				<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endunless %}
+{% endif %}

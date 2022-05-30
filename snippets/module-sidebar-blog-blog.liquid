@@ -1,0 +1,69 @@
+<div class="widget widget-search">
+	<div class="widget-inner">
+		<form action="/search" method="get" class="searchform clearfix" role="search">
+			<div class="input-group search-inner">
+		    	<input type="search" name="q" value="{{ search.terms | escape }}" aria-label="{{ 'general.search.placeholder' | t }}" class="form-control" placeholder="{{ 'general.search.placeholder' | t }}">
+				<i class="fa fa-search"></i>
+				<input type="hidden" name="type" value="article">
+			</div><!-- /input-group -->
+		</form>
+	</div>
+</div>
+
+<div class="widget widget-recent_articles">
+	<div class="widget-inner inner">
+		<h3 class="widget-title">
+			<span>{{ 'blogs.sidebar.recent_articles' | t }}</span>
+		</h3>
+		<div class="post-widget-sidebar">
+			{% for article in blogs[blog.handle].articles limit:3 %}
+				<div class="item clearfix">
+					<div class="item-thumbnail pull-left">
+						{% assign image_alt = article.title | escape %}
+	                	{{ article | img_url: '200x200' | img_tag: image_alt, 'article__image' | link_to: article.url }}
+					</div>
+					<div class="content">
+						<h6>
+							<a href="{{ article.url }}">{{ article.title }}</a>
+						</h6>
+						<time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+							<i class="fa fa-eye"></i><span class="text-light">{{ article.published_at | date: format: 'month_day_year' }}</span>
+						</time>
+					</div>
+						
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% if settings.blog_sidebar_category_list != blank %}
+	<div class="widget widget-blog-categories">
+		<div class="widget-inner inner">
+			<h3 class="widget-title"><span>Blogs</span> </h3>
+			<ul>
+				{% for blog in linklists[settings.blog_sidebar_category_list].links %}
+					<li><a href="{{ blog.url }}" class="blog-link">{{ blog.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endif %}
+
+<div class="widget widget-blog-tags">
+	<div class="widget-inner inner">
+		<h3 class="widget-title"><span>Blog tags</span> </h3>
+		<ul>
+			{% for tag in blog.all_tags %}
+				<li>{{ tag | link_to_tag: tag }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+
+{% include 'module-flickr-template' %}
+
+
+
+

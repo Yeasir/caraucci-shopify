@@ -1,0 +1,10 @@
+development:
+  password: 2feb22746b6c1040c7776294d36f05e8
+#  theme_id: "35573268515"
+  theme_id: "82469748771"
+  store: stylecaravan.myshopify.com
+  timeout: 60s
+  ignore_files:
+    - "*.idea"
+    - "*.json"
+    - "*.yml"

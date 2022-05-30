@@ -1,0 +1,14 @@
+<div class="the-comment clearfix">
+	<div class="comment-meta text-center pull-left">
+		<div class="avatar">
+		    <img src="http://www.gravatar.com/avatar/{{ comment.email | md5 }}?s=85" />
+		</div>		
+	</div>
+	<div class="comment-box">
+		<span class="title">{{ comment.author }}</span>
+		<time>{{ comment.created_at | date: "%b %d, %Y" }}</time>
+		<div class="comment-text">
+			{{ comment.content }}
+		</div>
+	</div>
+</div>

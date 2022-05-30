@@ -1,0 +1,72 @@
+{% assign products_per_row = settings.product_collection_number_of_column %}
+{% assign rows = settings.product_collection_number_of_row %}
+{% assign total_products = products_per_row | times: rows %}
+
+
+{% paginate collection.products by total_products %}
+	{% assign breadcrumb_class = 'shop-breadcrumb' %}
+	{% include 'module-breadcrumb-title' %}
+	
+	<div id="is-content" class="is-content is-product is-collection" data-is-full-width="true">
+		<div class="content-area container">
+			<div class="is-row-full-width"></div>
+			<div class="row">
+				<div class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 clearfix site-main is-main-left-sidebar">
+
+					<div class="catalog-ordering clearfix">
+      					{% include 'product-archive-collection-sorting' %}
+					</div> <!-- End .catalog-ordering -->
+
+					<div class="products">
+						<div class="row">
+							{% for product in collection.products %}
+								<div class="col-sm-12 product-container" data-price="{{ product.price | money_without_currency }}">
+									{% include "product-archive-list-item" %}
+								</div>
+							{% else %}
+								<div class="col-sm-12">
+						        	<p><span>{{ 'collections.general.no_matches' | t }}</span></p>
+						      	</div>
+							{% endfor %}
+						</div>
+
+                        {% if collection.description != blank %}
+							<div class="collection_wrapper clearfix">
+								<div class="collection_wrapper_inner">
+									<ul class="collection_list">
+										<li class="collection_item">
+											<div class="collection_title_b">
+                                                {{ collection.title }}
+											</div>
+											<div class="collection_desc_b">
+                                                {{ collection.description }}
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+                        {% endif %}
+
+						{% if paginate.pages > 1 %}
+						  	<nav class="paging">
+						    	{% include 'module-pagination' %}
+						    </nav>
+						{% endif %}
+					</div>
+
+
+				</div>
+				
+				<div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 is-sidebar">
+					{% include 'module-sidebar-product-product' %}
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+{% endpaginate %}
+
+
+
+

@@ -1,0 +1,41 @@
+<div class="widget clearfix widget-product-filter product-filter-color">
+    <div class="widget-inner">
+        <h3 class="widget-title">
+            <span>{{ settings.module_product_sidebar_filter_color_title }}</span>
+        </h3>
+        <div class="widget-content clearfix">
+            <ul>
+                {% for i in (1..16) %}
+                    {% capture color_title %}module_product_sidebar_filter_color_title_{{ i }}{% endcapture %}
+                    {% capture color_image %}module_product_sidebar_filter_color_image_{{ i }}.png{% endcapture %}
+                  
+                    {% capture used_tags %}{{ current_tags | downcase }}{% endcapture %}
+                    {% capture collection_tags %}{{ collection.tags | downcase }}{% endcapture %}
+                    {% capture tag %}{{ settings[color_title] | strip | downcase }}{% endcapture %}
+                    {% assign tag_handle = tag | handleize %}
+                    {% capture id_input %}filter-{{ tag_handle }}{% endcapture %}
+
+                    {% if settings[color_title] != blank %}
+                        {% if collection_tags contains tag %} 
+                            <li>
+                                <input type="checkbox" id="{{ id_input }}" value="{{ tag_handle }}" {% if used_tags contains tag %}checked{% endif %} />
+                                <a href="#" class="product-color-filter{% if used_tags contains tag %} active{% endif %}" title="{{tag}}">
+                                    <img src="{{ tag | handle | append: '.png' | file_url }}" alt="" />
+                                    <span class="image-title">{{ tag | capitalize }}</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".product-color-filter img").on("error", function() {
+            $(this).addClass("no-image");
+        });        
+    });
+</script>

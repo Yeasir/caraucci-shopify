@@ -1,0 +1,50 @@
+<nav class="is-breadcrumb breadcrumb-main" role="navigation" aria-label="breadcrumbs">
+	<div class="container ">
+		<ol class="breadcrumb">
+			<li>
+				<a href="/" title="{{ 'general.breadcrumbs.home_link_title' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
+			</li>
+			{% if template contains 'product' %}
+			    {% if collection %}
+			      	{% if collection.handle %}
+			        	{% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+			        	<li>{{ collection.title | link_to: url }}</li>
+			      	{% endif %}
+			    {% endif %}
+			    <li class="active">{{ product.title }}</span>
+		  	{% elsif template contains 'collection' and collection.handle %}
+			    {% if current_tags %}
+			      	{% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+			      	<li>{{ collection.title | link_to: url }}</li>
+			      	<li class="active">{{ current_tags | join: " + " }}</li>
+			    {% else %}
+			      	<li class="active">{{ collection.title }}</li>
+			    {% endif %}
+
+		  	{% elsif template == 'blog' %}
+			    {% if current_tags %}
+			      	<li>{{ blog.title | link_to: blog.url }}</li>
+			      	<li class="active">{{ current_tags | join: " + " }}</li>
+			    {% else %}
+			    	<li class="active">{{ blog.title }}</li>
+			    {% endif %}
+
+		  	{% elsif template == 'article' %}
+			    <li>{{ blog.title | link_to: blog.url }}</li>
+			    
+			    <li class="active">{{ article.title }}</li>
+
+			{% elsif template contains 'page' %}
+
+				<li>{{ page.title }}</li>
+
+			{% elsif template contains 'search' %}
+				<li>Search</li>
+		  	{% else %}
+			   	
+			   	<li>{{ page_title }}</li>
+
+			{% endif %}			
+		</ol>
+	</div>
+</nav>

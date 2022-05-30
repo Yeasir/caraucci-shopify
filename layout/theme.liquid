@@ -1,0 +1,135 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" itemscope itemtype="http://schema.org/WebPage"> <!--<![endif]-->
+<head>
+    <!-- Basic page needs 1234567================================================== -->
+    <meta charset="utf-8">
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+
+    <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+
+    <!-- Title and description ================================================== -->
+    <title>
+        {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+
+    {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <!-- Social meta ================================================== -->
+    {% include 'social-meta-tags' %}
+
+    <!-- Helpers ================================================== -->
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_primary }}">
+
+    <!-- Adobe Typekit Fonts ================================================== -->
+    <link rel="stylesheet" href="https://use.typekit.net/peu3xdb.css">
+
+    {{ 'bootstrap.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'font-awesome.css' | asset_url | stylesheet_tag }}
+    {{ 'simple-line-icons.css' | asset_url | stylesheet_tag }}
+    {{ '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css' | stylesheet_tag }}
+    {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'settings.scss.css' | asset_url | stylesheet_tag }}
+
+
+
+    <!-- Header hook for plugins ================================================== -->
+    {{ content_for_header }}
+
+    {% include 'oldIE-js' %}
+
+    <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+    {{ '//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js' | script_tag }}
+    {{ '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js' | script_tag }}
+    {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+    {{ 'modernizr.min.js' | asset_url | script_tag }}
+    {{ 'uikit.min.js' | asset_url | script_tag }}
+    {{ '/services/javascripts/countries.js' | script_tag }}
+    {{ '//maps.googleapis.com/maps/api/js?libraries=places&ver=1.0' | script_tag }}
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+    {{ 'theme.js' | asset_url | script_tag }}
+    {{ 'ymp.js' | asset_url | script_tag }}
+
+    {% comment %}
+    If you store has customer accounts disabled, you can remove the following JS file
+    {% endcomment %}
+
+    {% if template contains 'customers' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {% endif %}
+
+    <script type="text/javascript">
+        var moneyFormat = "{{ shop.money_format }}";
+    </script>
+
+</head>
+
+
+{% include 'globo.formbuilder.scripts' %}
+<body id="{{ page_title | handle }}" class="{{ settings.product-image-hover-effect }} {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+{% capture the_snippet_content %}{% render 'socialshopwave-helper' %}{% endcapture %}
+            {% unless the_snippet_content contains 'Liquid error' %}
+              {{ the_snippet_content }}
+            {% endunless %}
+
+{% comment %}
+{{ pages["promo-bar"].content }}
+{% endcomment %}
+
+{% if template contains 'signup' %}
+{% else %}
+{% include 'module-megamenu-canvas' %}
+{% include 'product-archive-cart' %}
+{% include settings.header_layout %}
+  <input type="hidden" id="test_x" value="{{ settings.header_layout }}">
+{% endif %}
+
+<div id="wrapper" class="wrapper">
+
+    {{ content_for_layout }}
+
+    {% if template contains 'signup' %}
+    {% else %}
+
+    {% include settings.footer_layout %}
+
+    {% endif %}
+
+</div>
+
+{% include 'product-detail-quickview' %}
+
+{% include 'module-outofstock-popup' %}
+
+<script>
+    jQuery(document).ready(function ($) {
+        $('body').InspiusFrontend({
+            // StickyMenu: {{ settings.header_sticky }},
+            BackToTop: {{ settings.general_back_to_top }}
+    });
+
+        var $hp_carousel = $("#home_product_slide");
+        $hp_carousel.on('click', '.owl-next, .owl-prev', function (e) {
+            var index = $hp_carousel.find('.owl-stage .active').last().index() - 1;
+            if($(this).hasClass('owl-next')){
+                index = Math.ceil(index/3);
+                Math.min(index, 2);
+            } else {
+                index = Math.floor(index/3) - 1;
+                index = Math.max(index, 0);
+            }
+            $hp_carousel.trigger('to.owl.carousel', [index, 400])
+        });
+    });
+</script>
+</body>
+</html>

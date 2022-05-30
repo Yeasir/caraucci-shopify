@@ -1,0 +1,57 @@
+{% comment %}
+    Renders a list of products from a collection
+
+    Accepts:
+    - collection: {Object} Collection Liquid object (required)
+
+    Usage:
+    {% include 'collection-grid-item', collection: collection %}
+{% endcomment %}
+
+{% if collection.products.first and collection.products.first.media != empty %}
+    {%- assign second_image = collection.products.first.featured_media.preview_image -%}
+{% endif %}
+{% if collection.products[1] and collection.products[1].media != empty %}
+    {%- assign third_image = collection.products[1].featured_media.preview_image -%}
+{% endif %}
+
+{% if collection.image %}
+  {%- assign collection_image = collection.image -%}
+{% elsif second_image != empty %}
+  {%- assign collection_image = second_image -%}
+  {%- assign second_image = third_image -%}
+{% else %}
+{% elsif third_image != empty %}
+  {%- assign collection_image = third_image -%}
+  {%- assign second_image = third_image -%}
+{% else %}
+  {% assign collection_image = blank %}
+  {% assign second_image = blank %}
+{% endif %}
+
+<div class="product product-block collection-block">
+    <div class="product-block-inner">
+        <div class="product-image">
+            <a href="{{ collection.url }}" title="{{ collection.title }}" class="title">
+                <div class="image">
+                    <img src="{{ collection_image| img_url: '360x480'  }}" class="image-effect" alt="{{ collection.title | escape }}">
+                    {% if second_image %}
+                        <img src="{{ second_image | img_url: '360x480'  }}" class="image-hover" alt="{{ collection.title | escape }}">
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+        <div class="product-meta">
+
+            <h4 class="name">
+                <a href="{{ collection.url }}" title="{{ collection.title }}">
+                    {{ collection.title }}
+                </a>
+            </h4>
+
+            <div class="description" itemprop="description">
+                <p>{{ collection.description | strip_html | truncatewords: 10 }}</p>
+            </div>
+        </div>
+    </div>
+</div>

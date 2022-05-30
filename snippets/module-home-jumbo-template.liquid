@@ -1,0 +1,23 @@
+<div class="home-jumbo-wrap">
+	{% capture image %}jumbo_module_img{% endcapture %}
+	{% capture img_title %}jumbo_module_collection_url{% endcapture %}
+	{% capture promo_txt %}jumbo_module_promo_title{% endcapture %}
+	{% capture promo_desc %}jumbo_module_promo_desc{% endcapture %}
+	{% capture promo_btn_text %}jumbo_module_collection_text{% endcapture %}
+	{% capture promo_btn_url %}jumbo_module_collection_url{% endcapture %}
+	{% capture text_position %}jumbo_module_promo_text_align{% endcapture %}
+	<div class="jumbo-item {{ settings[text_position]  }}">
+		<a href="{{ settings[promo_btn_url] }}" title="{{ settings[promo_txt]  }}">
+		<img src="{{ settings[image] | img_url: 'master' }}" alt="{{ settings[image].alt }}" title="{{ settings[img_title] }}">
+		</a>
+		<div class="jumbo-text">
+			<div class="jumbo-text-inner">
+				<h2>{{ settings[promo_txt] }}</h2>
+				<p>{{ settings[promo_desc] }}</p>
+				<a href="{{ settings[promo_btn_url] }}"
+				   class="btn2 sbtn sbtn-large sbtn-dynamic">{{ settings[promo_btn_text] }}</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- asdf -->

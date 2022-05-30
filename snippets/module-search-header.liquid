@@ -1,0 +1,14 @@
+<form action="/search" method="get" class="searchform clearfix container" role="search">
+	<div class="input-group">
+    	<input type="search" name="q" value="{{ search.terms | escape }}" aria-label="{{ 'general.search.placeholder' | t }}" class="form-control" placeholder="{{ 'general.search.placeholder' | t }}">
+		<div class="input-group-btn">
+			<button class="btn btn-primary" type="submit">
+				<i class="icon-magnifier"></i>
+			</button>
+			<button class="btn btn-primary close-search" type="reset">
+				<i class="icon-close"></i>
+			</button>
+		</div>
+		<input type="hidden" name="type" value="product">
+	</div><!-- /input-group -->
+</form>

@@ -1,0 +1,77 @@
+<div id="is-content" class="is-content ">
+	<div class="content-area">
+		<div class="section-element slider-1 {% if settings.enable_beauty_layout == true %}container{% endif %}">
+			{% include "module-home-jumbo-template" %}
+		</div> <!-- End Slider -->
+		
+		<div class="section-element text-center ">
+			{% include 'module-lookbook-template' %}
+		</div>
+
+		<div class="tab-products tab-products1 container">
+			<h3 class="heading-title">{{ settings.tab_product_title }}</h3>
+			<div class="text-center tab-desc">
+				<span>{{ settings.tab_product_desc }}</span>
+			</div>
+			{% include 'module-tab-products-template' %}
+		</div>
+
+		<div class="section-element container">
+			<div class="collection-banner">
+				{% include 'module-banner-template' %}
+			</div>
+		</div> <!-- End .section-white -->
+
+		<div class="section-element container">
+			<div class="row">
+				<div class="col-sm-5 product-single">
+					{% assign collection = collections[settings.home_collection_1] %}
+					<h3 class="heading-title">
+						<span>{{ collection.title }}</span>
+					</h3>
+					<div class="collection-all-link text-center">
+						<a href="{{ collection.url }}" class="btn  collection-btn">SHOP ALL</a>
+					</div>
+					{% assign column = "1" %}
+					{% assign limit = settings.home_collection_product_carousel_number %}
+					{% capture layout_type %}product-layout-carousel{% endcapture %}
+					{% include layout_type %}
+				</div>
+				<div class="col-sm-7">
+					{% assign collection = collections[settings.home_collection_2] %}
+					<h3 class="heading-title">
+						<span>{{ collection.title }}</span>
+					</h3>
+					<div class="collection-all-link text-center">
+						<a href="{{ collection.url }}" class="btn  collection-btn">SHOP ALL</a>
+					</div>
+					{% assign column = "3" %}
+					{% assign limit = settings.home_collection_product_carousel_number %}
+					{% capture layout_type %}product-layout-carousel{% endcapture %}
+					{% include layout_type %}
+
+				</div>
+			</div>
+		</div>
+		<div class="section-element container ">
+			<div class="testimonials">
+				{% if settings.testimonial_title != blank %}
+					<h3 class="heading-title">
+						<span>{{ settings.testimonial_title }}</span>
+					</h3>
+				{% endif %}
+				{% include 'module-testimonials-template' %}
+			</div>
+		</div> <!-- End .section-white -->
+        {% if settings.module_enable_blog %}
+		<div class="section-element container ">
+			<div class="blogs">
+				{% include 'module-blogs-style-1' %}
+			</div>
+		</div>
+        {% endif %}
+		<div class="section-element container text-center">
+			{% include 'module-instagram-template' %}
+		</div>
+	</div>
+</div>

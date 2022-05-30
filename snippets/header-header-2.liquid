@@ -1,0 +1,40 @@
+<header id="is-header" class="is-header header-style-2">
+	<div class="header-container header-mainmenu ">
+		<div class="inner">
+			<div class="header-inner clearfix container">
+				<div class="logo pull-left">
+					<a href="/" class="logo-wrapper" itemprop="url">
+						<img src="{{ 'header_logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+					</a>
+				</div>
+				<div class="button-action pull-right">
+					<div class="menu-action hidden-md hidden-lg pull-right">
+						<a href="#" data-uk-offcanvas="{target:'#is-off-canvas'}"><i class="icon-menu"></i></a>
+					</div>
+					<div class="search-action pull-right icon-action">
+						<a href="#"><i class="icon-magnifier"></i></a>
+					</div>
+					<div class="shoppingcart pull-right icon-action">
+						<a href="javascript:;" data-uk-offcanvas="{target:'#is_cart_canvas'}">
+						    <i class="icon-bag"></i>
+						    <span class="count">{{ cart.item_count }}</span>
+						</a>
+					</div>
+					<div class="account-action pull-right icon-action">
+						<a href="/account"><i class="icon-user"></i></a>
+					</div>
+				</div>
+				<div class="hidden-sm header-menu header-menu-styte pull-right">
+					{% include 'module-megamenu-layout' %}
+				</div>
+			</div>
+
+			<!-- Start Search Form -->
+			<div class="is-search-form ">
+				{% include 'module-search-header' %}
+			</div>
+			<!-- End Search Form -->
+		</div>
+	</div><!-- End .header-mainmenu -->
+</header><!-- End .is-header -->
+

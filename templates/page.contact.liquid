@@ -1,0 +1,77 @@
+
+{% assign breadcrumb_class = 'contact-breadcrumb' %}
+{% include 'module-breadcrumb-title' %}
+
+<div id="is-content" class="is-content ">
+
+    <div class="content-area contact-styte container">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="section-element ">
+                        {{ page.content }}
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="section-element ">
+						<h2 class="contact-title text-center">Contact form</h2>
+						<p>Your email address will not be published. Required fields are marked *</p>
+	                    {% form 'contact' %}
+		                    {{ form.errors | default_errors }}
+		                    <div class="row">
+		                        <div class="col-sm-6">
+		                            <div class="form-group">
+		                                {% assign name_attr = 'contact.form.name' | t | handle %}
+		                                <label for="ContactFormName">{{ 'contact.form.name' | t }} *</label>
+		                                <span class="your-name">
+		                                    <input type="text" id="ContactFormName" class="form-control" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}" required>
+		                                </span>
+		                            </div>
+		                        </div>
+
+		                        <div class="col-sm-6">
+		                            <div class="form-group">
+		                                <label for="ContactFormEmail">{{ 'contact.form.email' | t }} *</label>
+		                                <span class="your-email">
+		                                    <input type="email" id="ContactFormEmail" class="form-control" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
+		                                </span>
+		                            </div>
+		                        </div>
+
+		                        <div class="col-sm-12">
+		                            <div class="form-group">
+		                                <label for="ContactFormSubject">Subject *</label>
+		                                <div class="your-subject ymp-custom-select-wrap">
+		                                    <select class="ymp-custom-select form-control" id="ContactFormSubject" name="contact[subject]">
+												<option value="">Please select...</option>
+												<option value="Returns & Exchanges">Returns & Exchanges</option>
+												<option value="Product Question">Product Question</option>
+												<option value="Website Errors & Issues">Website Errors & Issues</option>
+											</select>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+
+		                    <div class="form-group">
+		                        <label for="ContactFormMessage" class="label--hidden">{{ 'contact.form.message' | t }} *</label>
+		                        <span class="your-message">
+		                            <textarea cols="40" rows="10" id="ContactFormMessage" class="form-control" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+		                        </span>
+		                    </div>
+
+		                    <p class="text-center"><input type="submit" class="sbtn-light" value="{{ 'contact.form.send' | t }}"></p>
+
+		                    {% if form.posted_successfully? %}
+		                        <p class="note form-success">
+		                            {{ 'contact.form.post_success' | t }}
+		                        </p>
+		                    {% endif %}
+	                    {% endform %}
+                    </div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>

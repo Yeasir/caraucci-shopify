@@ -1,0 +1,57 @@
+<ul class="social-networks list-unstyled">
+	{% if settings.module_social_account_facebook != blank %}
+		<li>
+			<a data-toggle="tooltip" data-original-title="Facebook" href="{{ settings.module_social_account_facebook }}" target="_blank">
+				<i class="fa fa-facebook"></i>
+			</a>
+		</li>
+	{% endif %}
+
+	{% if settings.module_social_account_pinterest != blank %}
+		<li>
+			<a data-toggle="tooltip" data-original-title="Pinterest" href="{{ settings.module_social_account_pinterest }}" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	{% endif %}
+
+	{% if settings.module_social_account_twitter != blank %}
+	<li>
+		<a data-toggle="tooltip" data-original-title="Twitter" href="{{ settings.module_social_account_twitter }}" target="_blank">
+			<i class="fa fa-twitter"></i>
+		</a>
+	</li>
+	{% endif %}
+
+	{% if settings.module_social_account_linkedin != blank %}
+	<li>
+		<a data-toggle="tooltip" data-original-title="LinkedIn" href="{{ settings.module_social_account_linkedin }}" target="_blank">
+			<i class="fa fa-linkedin"></i>
+		</a>
+	</li>
+	{% endif %}
+
+	{% if settings.module_social_account_instagram != blank %}
+	<li>
+		<a data-toggle="tooltip" data-original-title="Instagram" href="{{ settings.module_social_account_instagram }}" target="_blank">
+			<i class="fa fa-instagram"></i>
+		</a>
+	</li>
+	{% endif %}
+
+	{% if settings.module_social_account_tumblr != blank %}
+	<li>
+		<a data-toggle="tooltip" data-original-title="Tumblr" href="{{ settings.module_social_account_tumblr }}" target="_blank">
+			<i class="fa fa-tumblr"></i>
+		</a>
+	</li>
+	{% endif %}
+
+	{% if settings.module_social_account_google != blank %}
+	<li>
+		<a data-toggle="tooltip" data-original-title="Google+" href="{{ settings.module_social_account_google }}" target="_blank">
+		<i class="fa fa-google-plus"></i>
+		</a>
+	</li>
+	{% endif %}
+</ul>

@@ -1,0 +1,22 @@
+{% comment %}
+	Collection type includes:
+		new_arrivals
+		bestseller
+		sell_off
+		featured
+		top_rate
+		hot_deals
+{% endcomment %}
+
+{% if custom_collection != blank %}
+	{% assign collection = collections[custom_collection] %}
+{% else %}
+	{% capture collection_setting %}{{ collection_type }}_product_collection{% endcapture %}
+	{% assign collection = collections[settings[collection_setting]] %}
+{% endif %}
+{% assign custom_collection = blank %}
+
+
+
+{% capture layout_type %}product-layout-{{ type }}{% endcapture %}
+{% include layout_type %}

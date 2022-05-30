@@ -1,0 +1,20 @@
+<div class="owl-container">
+	<div class="testimonial" data-owl="slide" data-item-slide="1" data-dot="" data-nav="true">
+	{% for i in (1..5) %}
+		{% capture enable %}enable_testimonial_{{ i }}{% endcapture %}
+		{% capture image %}testimonial_avatar_{{ i }}.png{% endcapture %}
+		{% capture name %}testimonial_name_{{ i }}{% endcapture %}
+		{% capture position %}testimonial_position_{{ i }}{% endcapture %}
+		{% capture text %}testimonial_text_{{ i }}{% endcapture %}
+		{% if settings[enable] %}
+			<div class="testimonial-item">
+				<blockquote >
+					<p>{{ settings[text] }}</p>
+					<footer><cite title="{{ settings[name] }}">{{ settings[name] }}</cite></footer>
+				</blockquote>
+				
+			</div>
+		{% endif %}
+	{% endfor %}
+	</div>
+</div>

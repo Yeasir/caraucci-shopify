@@ -1,0 +1,104 @@
+{% assign mainmenu = settings.megamenu_menu %}
+<nav id="is-mainnav" class="is-megamenu {{ settings.megamenu_animation }} animate navbar navbar-main" data-duration="300">
+	<div class="collapse navbar-collapse navbar-ex1-collapse">
+		<ul class="nav navbar-nav megamenu">
+
+			{% for lvl1_link in linklists[mainmenu].links %}
+				{% assign lvl1_link_handle = lvl1_link.handle %}
+				{% assign display_megamenu = false %}
+				{% for i in (1..3) %}
+					{% capture list_name %}megamenu_menu_{{ i }}{% endcapture %}
+					{% if settings[list_name] == lvl1_link_handle %}
+						{% assign megamenu_number = i %}
+						{% assign display_megamenu = true %}
+						{% include "module-megamenu-template" %}
+						{% break %}
+					{% endif %}
+				{% endfor %}
+
+				{% unless display_megamenu %}
+					{% assign lvl2_links = linklists[lvl1_link_handle].links %}
+					{% if lvl2_links != blank %}
+					    <li class="menu-item dropdown mega{% if lvl1_link.active %} current-menu-item{% endif %}" aria-haspopup="true" data-level="1">
+							<a href="{{ lvl1_link.url }}" class="site-nav__link dropdown-toggle">
+								<span>{{ lvl1_link.title }}</span>
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<div class="nav-child dropdown-menu mega-dropdown-menu mega-col-nav">
+								<div class="mega-dropdown-inner mega-inner">
+									<ul class="mega-nav level2">
+										{% for lvl2_link in lvl2_links %}
+											{% assign lvl2_link_handle = lvl2_link.handle %}
+											{% assign lvl3_links = linklists[lvl2_link_handle].links %}
+											<li class="menu-item dropdown mega{% if lvl2_link.active %} current-menu-item{% endif %}" aria-haspopup="true" data-level="2">
+												<a href="{{ lvl2_link.url }}" class="site-nav__link dropdown-toggle">
+													<span>{{ lvl2_link.title }}</span>
+												</a>
+												{% if lvl3_links != blank %}
+													<i class="fa fa-angle-down"></i>
+													<div class="nav-child dropdown-menu mega-dropdown-menu mega-col-nav">
+														<div class="mega-dropdown-inner mega-inner">
+															<ul class="mega-nav level2">
+																{% for lvl3_link in lvl3_links %}
+																	<li class="menu-item{% if lvl3_link.active %} current-menu-item{% endif %}">
+																		<a href="{{ lvl3_link.url }}">
+																			<span>{{ lvl3_link.title }}</span>
+																		</a>
+																	</li>
+																{% endfor %}
+															</ul>
+														</div>
+													</div>
+												{% endif %}
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+					    </li>	
+				  	{% else %}
+						<li class="menu-item{% if lvl1_link.active %} current-menu-item{% endif %}">
+							<a href="{{ lvl1_link.url }}">
+								<span>{{ lvl1_link.title }}</span>
+							</a>
+						</li>
+				  	{% endif %}
+				{% endunless %}
+			{% endfor %}
+		</ul>
+	</div>
+</nav>
+  
+
+{% comment %}
+Save for later use
+3-level dropdown menu
+
+<li class="menu-item dropdown mega{% if lvl2_link.active %} current-menu-item{% endif %}" aria-haspopup="true" data-level="2">
+	<a href="{{ lvl2_link.url }}" class="site-nav__link dropdown-toggle">
+		<span>{{ lvl2_link.title }}</span>
+		<i class="fa fa-angle-down"></i>
+	</a>
+	<div class="nav-child dropdown-menu mega-dropdown-menu mega-col-nav">
+		<div class="mega-dropdown-inner mega-inner">
+			<ul class="mega-nav level2">
+				{% for lvl3_link in lvl3_links %}
+					{% assign lvl3_link_handle = lvl3_link.title | handleize %}
+					{% assign lvl4_links = linklists[lvl3_link_handle].links %}
+					{% if lvl4_links != blank %}
+						<li {% if lvl3_link.active %}class="current-menu-item"{% endif %} >
+							<a href="{{ lvl3_link.url }}">{{ lvl3_link.title | escape }}</a>
+						</li>
+					{% else %}
+						<li class="menu-item{% if lvl3_link.active %} current-menu-item{% endif %}">
+							<a href="{{ lvl3_link.url }}">
+								<span>{{ lvl3_link.title }}</span>
+							</a>
+						</li>
+				  	{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</li>
+{% endcomment %}

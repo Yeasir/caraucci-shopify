@@ -1,0 +1,51 @@
+{% assign grid_results = false %}
+{% assign respond_js_secret_key = shop.domain | md5 %}
+{% unless search.terms == respond_js_secret_key %}
+    {% if search.performed %}
+        {% paginate search.results by 8 %}
+            {% if search.results_count == 0 %}
+                {% assign breadcrumb_class = 'shop-breadcrumb' %}
+                {% include 'module-breadcrumb-title' %}
+                <div class="search-found container">
+                    <div class="section-header section-header--large">
+                        <h1 class="section-header__title h2">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+                        {% include 'module-search-bar' %}
+                    </div>
+                </div>
+            {% else %}
+               {% assign breadcrumb_class = 'shop-breadcrumb' %}
+                {% include 'module-breadcrumb-title' %}
+
+                <div id="is-content" class="is-content">
+                    <div class="content-area container">
+                        <div class="row">
+                            {% for item in search.results %}
+                                {% include 'module-search-result' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if paginate.pages > 1 %}
+                <div class="container">
+                    <div class="pagination">
+                        {% include 'module-pagination' %}
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endpaginate %}
+    {% else %}
+        {% assign breadcrumb_class = 'shop-breadcrumb' %}
+        {% include 'module-breadcrumb-title' %}
+        <div class="section-header section-header--large search-found container search-found">
+            <h1 class="section-header__title h2">{{ 'general.search.title' | t }}</h1>
+             {% include 'module-search-bar' %}
+        </div>
+       
+    {% endif %}
+{% else %}
+    {% include 'respond' %}
+    {% layout none %}
+{% endunless %}

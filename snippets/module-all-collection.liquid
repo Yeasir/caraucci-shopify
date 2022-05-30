@@ -1,0 +1,67 @@
+{% if settings.module_product_sidebar_category_list != blank %}
+	<div class="collection_wrapper clearfix">
+		<h3>All Categories</h3>
+		<div class="collection_wrapper_inner">
+			<ul class="collection_list">
+				{% unless linklists[settings.module_product_sidebar_category_list].empty? %}
+					{% for lvl1_link in linklists[settings.module_product_sidebar_category_list].links %}
+						{% assign lvl1_link_handle = lvl1_link.handle %}
+						{% assign lvl2_links = linklists[lvl1_link_handle].links %}
+						{% if lvl2_links != blank %}
+						    <li class="parent_collection collection_item">
+								<div class="collection_title_b">
+                                    {{ lvl1_link.title }}
+								</div>
+								<div class="collection_desc_b">
+                                    {{ lvl1_link.object.description }}
+								</div>
+							</li>
+									{% for lvl2_link in lvl2_links %}
+										{% assign lvl2_link_handle = lvl2_link.handle %}
+										{% assign lvl3_links = linklists[lvl2_link_handle].links %}
+										{% if lvl3_links != blank %}
+											<li class="child_collection collection_item">
+												<div class="collection_title_b">
+                                                    {{ lvl2_link.title }}
+												</div>
+												<div class="collection_desc_b">
+                                                    {{ lvl2_link.object.description }}
+												</div>
+											</li>
+										{% for lvl3_link in lvl3_links %}
+											<li class="grand_child_collection collection_item">
+												<div class="collection_title_b">
+                                                    {{ lvl3_link.title }}
+												</div>
+												<div class="collection_desc_b">
+                                                    {{ lvl3_link.object.description }}
+												</div>
+											</li>
+										{% endfor %}
+										{% else %}
+											<li class="child_collection collection_item">
+												<div class="collection_title_b">
+                                                    {{ lvl2_link.title }}
+												</div>
+												<div class="collection_desc_b">
+                                                    {{ lvl2_link.object.description }}
+												</div>
+											</li>
+										{% endif %}
+									{% endfor %}
+					  	{% else %}
+							<li class="parent_collection collection_item">
+								<div class="collection_title_b">
+                                    {{ lvl1_link.title }}
+								</div>
+								<div class="collection_desc_b">
+                                    {{ lvl1_link.object.description }}
+								</div>
+							</li>
+					  	{% endif %}
+					{% endfor %}
+				{% endunless %}
+			</ul>
+		</div>
+	</div>
+{% endif %}

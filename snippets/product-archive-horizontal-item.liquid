@@ -1,0 +1,59 @@
+{% comment %} 
+	require product
+{% endcomment %}
+
+{% assign on_sale = false %}
+{% assign sale_text = 'products.product.sale' | t %}
+{% if product.compare_at_price > product.price %}
+  	{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% assign sold_out_text = 'products.product.sold_out' | t %}
+{% if product.available %}
+  	{% assign sold_out = false %}
+{% endif %}
+
+<div class="product product-block">
+  {% capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with product.id %}{% endcapture %}
+  {% unless the_snippet_fave_icon contains 'Liquid error' %}
+  {{ the_snippet_fave_icon }}
+  {% endunless %}
+	<div class="product-block-inner">
+		{% if on_sale %}
+			<span class="onsale">Sale!</span>
+		{% endif %}
+
+
+
+
+		<div class="product-image">
+			<a href="{{ product.url }}" title="{{ product.title }}" class="title">
+				<div class="image">
+					{% assign image = product.images.first %}
+					{% assign second_image = product.images[1] %}
+					<img src="{{ image.src | product_img_url: 'large'  }}" class="image-effect" alt="{{ image.alt | escape }}">
+					{% if second_image %}
+						<img src="{{ second_image.src | product_img_url: 'large'  }}" class="image-hover" alt="{{ second_image.alt | escape }}">
+					{% endif %}
+				</div>
+			</a>
+		</div>
+		<div class="product-meta">
+			
+			<h4 class="name">
+				<a href="{{ product.url }}" title="{{ product.title }}">
+					{{ product.title }}
+				</a>
+			</h4>
+			<span class="price">
+				<span class="amount">{{ product.price | money }}</span>
+			</span> 
+
+			<div class="description" itemprop="description">
+				<p>{{ product.description | strip_html | truncatewords: 10 }}</p>
+			</div>
+		</div>
+		
+	</div>
+</div>

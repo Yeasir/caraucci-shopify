@@ -1,0 +1,90 @@
+{% assign number_of_comments = article.comments_count %}
+
+{% if comment and comment.created_at %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+{% assign breadcrumb_class = 'shop-breadcrumb' %}
+{% include 'module-breadcrumb-title' %}
+
+{% paginate article.comments by 5 %}	
+	<div id="is-content" class="is-content" data-is-full-width="true">
+		<div class="content-area container">
+			<div class="is-row-full-width"></div>
+			<div class="row">
+				<div class="col-sm-12 site-main is-main-left-sidebar article-container">
+					<div class="blog-container single-container clearfix">
+						<div class="entry-header clearfix">
+							{% if article.image %}
+								<div class="post-thumb">
+				                	{% assign image_alt = article.title | escape %}
+				                	{{ article | img_url: '1024x1024' | img_tag: image_alt, 'article__image' | link_to: article.url }}
+				                	<span class="post-type"><i class="icon-docs"></i></span>
+			                	</div>
+			              	{% endif %}
+	      				</div>
+		              	<div class="single-main inner">
+		              		<h2 class="entry-title clearfix">
+	      						<a href="{{ article.url }}">{{ article.title }}</a>
+	      					</h2>
+	      					<div class="entry-meta clearfix">
+	              				<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+	              					 {{ article.published_at | date: "%b %d, %Y" }}
+	              				</time>
+	              				<span><a href="">{{article.comments_count}} Comment</a> </span>
+	              			</div>
+		              		<div class="inner-content clearfix">
+		              			<div class="entry-content">
+		              				{{ article.content }}
+		              			</div>
+		              		</div> <!-- end .inner-content -->
+		              	</div> <!-- end .inner -->
+		              	<!-- Social Sharing -->
+	              		<div class="social">
+	              			<div class="row">
+								<div class="col-sm-4">
+									<h4 class="title-social">Share this post</h4>
+								</div>
+								<div class="col-sm-8">
+									<div class="content-social">
+										{% include 'module-social-sharing' %}
+									</div>
+								</div>
+							</div>
+	              		</div>
+	              		<div class="article-recent text-center">
+		              		<h3 class="title-social">
+								<span>{{ 'blogs.sidebar.recent_articles' | t }}</span>
+							</h3>
+							<div class="post-widget-sidebar">
+								<div class="row">
+								{% for article in blogs[blog.handle].articles limit:4 %}
+									<div class="item col-sm-3">
+										<div class="item-thumbnail ">
+											{% assign image_alt = article.title | escape %}
+						                	{{ article | img_url: 'medium' | img_tag: image_alt, 'article__image' | link_to: article.url }}
+										</div>
+										<div class="content">
+											<div class="item-cate"><a href="{{ blog.url }}">{{ blog.title }} </a> </div>
+											<h5>
+												<a href="{{ article.url }}">{{ article.title }}</a>
+											</h5>
+										</div>
+									</div>
+								{% endfor %}
+								</div>
+							</div>
+						</div>
+	              		<div class="comment">
+	              			{% if blog.comments_enabled? %}
+		              			{% include 'module-comments-list' %}
+		              			
+		              			{% include 'module-comments-form' %}
+		              		{% endif %}
+	              		</div>
+					</div> 
+				</div>
+				
+			</div>
+		</div>
+	</div>
+{% endpaginate %}

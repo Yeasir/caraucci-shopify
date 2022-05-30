@@ -1,0 +1,29 @@
+<ul class="switch-layout pull-right list-unstyled">
+    <li>
+    	<a style="position:relative;" data-action="grid" class="active" href="#">
+			<i class="icon-grid"></i>
+		</a>
+	</li>
+    <li>
+    	<a style="position:relative;" data-action="list" href="#">
+    		<i class="icon-list"></i>
+    	</a>
+    </li>
+</ul>
+
+<div class="form-shorting pull-left">
+	<select class="form-control" name="SortBy" id="SortBy">
+		<option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+		<option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+		<option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
+		<option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
+		<option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+		<option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+		<option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
+		<option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
+	</select>
+</div>
+
+<script>
+	var sortOrder = '{{ collection.sort_by | default: collection.default_sort_by }}';
+</script>

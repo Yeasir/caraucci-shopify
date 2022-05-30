@@ -1,0 +1,14 @@
+{% if settings.home_text_banner_enable %}
+	<div class="banner-content">
+		<div class="banner-content-inner">
+			{% if settings.home_text_banner_title != blank %}
+				<h3>
+					<span>{{ settings.home_text_banner_title }}</span>
+				</h3>
+			{% endif %}
+			{% if settings.home_text_banner_desc != blank %}
+				<p>{{ settings.home_text_banner_desc }}</p>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

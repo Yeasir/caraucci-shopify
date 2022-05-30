@@ -1,0 +1,18 @@
+{% comment %}
+	require a module-single-menu to display
+
+	use include "module-single-menu" with "abc" to call
+{% endcomment %}
+
+{% if module-single-menu != blank %}
+	{% assign lists = linklists[module-single-menu] %}
+	{% unless lists.empty? %}
+		<div class="menu-container">
+			<ul class="menu">
+				{% for link in lists.links %}
+					<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endunless %}
+{% endif %}

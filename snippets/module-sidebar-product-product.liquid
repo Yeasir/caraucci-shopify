@@ -1,0 +1,32 @@
+<div class="product-sidebar sidebar-inner">
+
+	{% comment %}
+	{% include "module-widget-product-price-slider-filter" %}
+	{% endcomment %}
+
+	<!-- Start filter module -->
+	<div class="filter-container">
+
+		{% include "module-widget-product-current-tags" %}
+
+		{% if settings.module_product_sidebar_filter_color_enable %}
+			{% include "module-widget-product-color-filter" %}
+		{% endif %}
+
+		{% for i in (1..4) %}
+			{% capture enable %}module_product_sidebar_filter_{{ i }}_enable{% endcapture %}
+			{% capture tags %}module_product_sidebar_filter_{{ i }}_tag_list{% endcapture %}
+			{% if enable and settings[tags] != blank %}
+				{% capture title %}module_product_sidebar_filter_{{ i }}_title{% endcapture %}
+				{% if settings[tags] != blank %}
+					{% include "module-widget-product-filter" %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}	
+	</div>
+	<!-- End filter module -->
+
+	<!-- Start module recently viewed product -->
+	{% include "module-widget-product-recently-viewed" %}
+	<!-- End module recently viewed product -->
+</div>

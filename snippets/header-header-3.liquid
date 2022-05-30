@@ -1,0 +1,48 @@
+<header id="is-header" class="is-header header-style-3">
+	<div class="header-container header-mainmenu  clearfix">
+		<div class="header-container-inner">
+			<div class="row">
+				<div class="col-xs-4 menu-action pull-left">
+					<div class="header-action clearfix">
+						<div class="inner">
+							<div class="menu-action-inner hidden-xs ">
+								<a href="#" data-uk-offcanvas="{target:'#is-off-canvas'}"><i class="icon-menu"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="logo text-center col-xs-4">
+					<a href="/" class="logo-wrapper" itemprop="url">
+						<img src="{{ 'header_logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+					</a>
+				</div>
+				<div class="button-action col-sm-4 col-xs-9">	
+					<div class="inner">
+						<div class="search-action pull-right icon-action">
+							<a href="#"><i class="icon-magnifier"></i></a>
+						</div>
+						<div class="shoppingcart pull-right icon-action">
+							<a href="javascript:;" data-uk-offcanvas="{target:'#is_cart_canvas'}">
+							    <i class="icon-bag"></i>
+							    <span class="count">{{ cart.item_count }}</span>
+							</a>
+						</div>
+						<div class="account-action pull-right icon-action ">
+							<a href="/account"><i class="icon-user"></i></a>
+						</div>
+						<div class="menu-action hidden-sm hidden-md hidden-lg pull-right">
+							<a href="#" data-uk-offcanvas="{target:'#is-off-canvas'}"><i class="icon-menu"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Start Search Form -->
+			<div class="is-search-form">
+				<div class="container">
+					{% include 'module-search-header' %}
+				</div>
+			</div>
+			<!-- End Search Form -->
+		</div>
+	</div><!-- End .header-mainmenu -->
+</header><!-- End .is-header -->

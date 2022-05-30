@@ -1,0 +1,39 @@
+{% comment %}
+	require collection
+{% endcomment %}
+{% if(column == "1") %}
+<div class="owl-container">
+	<div data-owl="slide"
+		data-item-slide="{{ column }}"
+		class="product-slide"
+		data-nav="true"
+		data-dot="false"
+		>
+		{% for product in collection.products limit:limit %}
+			{% include "product-archive-horizontal-item" %}
+		{% endfor %}
+	</div>
+</div>
+{% else %}
+	<div class="owl-container-custom">
+		<div id="home_product_slide"
+			 class="product-slide">
+            {% for product in collection.products limit:limit %}
+                {% include "product-archive-horizontal-item" %}
+            {% endfor %}
+		</div>
+	</div>
+	{% comment %}
+	<script type="text/javascript">
+		jQuery("#home_product_slide").owlCarousel({
+            loop:true,
+		    items : {{ column }},
+            dots : false,
+            navigation : true,
+            navText:["<i class='fa fa-angle-left'></i><span></span>","<span></span><i class='fa fa-angle-right'></i>"],
+            singleItem : false
+		});
+	</script>
+	{% endcomment %}
+{% endif %}
+

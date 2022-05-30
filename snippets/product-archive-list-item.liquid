@@ -1,0 +1,66 @@
+{% comment %} 
+	require product
+{% endcomment %}
+
+{% assign on_sale = false %}
+{% assign sale_text = 'products.product.sale' | t %}
+{% if product.compare_at_price > product.price %}
+  	{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% assign sold_out_text = 'products.product.sold_out' | t %}
+{% if product.available %}
+  	{% assign sold_out = false %}
+{% endif %}
+
+<div class="product-block product product-list">
+	<div class="product-list-inner clearfix">
+		<div class="list-thumb pull-left">
+			<a href="{{ product.url }}" title="{{ product.title }}">
+				<div class="product-image">
+					<div class="image">
+						{% assign image = product.images.first %}
+						{% assign second_image = product.images[1] %}
+						<img src="{{ image.src | product_img_url: 'large'  }}" class="image-effect" alt="{{ image.alt | escape }}">
+						{% if second_image %}
+							<img src="{{ second_image.src | product_img_url: 'large'  }}" class="image-hover" alt="{{ second_image.alt | escape }}">
+						{% endif %}
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="product-meta clearfix">
+			<h4 class="name">
+				<a href="{{ product.url }}" title="{{ product.title }}">
+					{{ product.title }}
+				</a>
+			</h4>
+			<div class="price">
+				<span class="amount">{{ product.price | money }}</span>
+			</div>
+			<div class="star-rating">
+				<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+			</div>
+			
+			<div itemprop="description">
+				<p>{{ product.description | strip_html | truncatewords: 40 }}</p>
+			</div>
+
+			<div class="button-group">
+				{% if product.variants.size > 1 %}
+					<a href="{{ product.url }}" class="button btn-cart">
+						<span class="cart-text">Select options</span>
+					</a>
+				{% else %}
+					<a href="#" class="button btn-cart add_to_cart_button" data-product-id="{{ product.selected_or_first_available_variant.id }}">
+						<span class="cart-text">Add to cart</span>
+					</a>
+				{% endif %}
+				
+				{% assign wishlist_type = "btn" %}
+				{% include "module-wishlist-template" %}
+			</div>
+		</div>
+	</div>
+</div>

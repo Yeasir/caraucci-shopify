@@ -1,0 +1,46 @@
+{% if template contains 'article' or template contains 'blog' %}
+  	{% capture permalinkURL %}{{ shop.url }}{{ article.url }}{% endcapture %}
+  	{% capture shareTitle %}{{ article.title | url_param_escape }}{% endcapture %}
+{% elsif template contains 'product' %}
+  	{% capture permalinkURL %}{{ shop.url }}{{ product.url }}{% endcapture %}
+  	{% capture shareTitle %}{{ product.title | url_param_escape }}{% endcapture %}
+{% elsif template == 'password' %}
+  	{% capture permalinkURL %}{{ shop.url }}{% endcapture %}
+  	{% capture shareTitle %}{% unless shop.description == blank %}{{ shop.description | url_param_escape }}{% else %}{{ shop.name | url_param_escape }}{% endunless %}{% endcapture %}
+{% endif %}
+
+
+<ul class="social-networks clearfix list-unstyled" data-permalink="{{ permalinkURL }}">
+	<li class="facebook">
+		<a data-toggle="tooltip" data-original-title="Facebook" target="_blank" href="//www.facebook.com/sharer.php?u={{ permalinkURL }}">
+	      	<i class="fa fa-facebook"></i>
+	    </a>
+	</li>
+	<li class="twitter">
+		<a data-toggle="tooltip" data-original-title="Twitter" target="_blank" href="//twitter.com/share?text={{ shareTitle }}&amp;url={{ permalinkURL }}">
+	  		<i class="fa fa-twitter"></i>
+		</a>
+	</li>
+	<li class="linkedin">
+		<a data-toggle="tooltip" data-original-title="LinkedIn" href="//linkedin.com/shareArticle?mini=true&amp;url={{ permalinkURL }}&amp;title={{ shareTitle }}" target="_blank">
+			<i class="fa fa-linkedin"></i>
+		</a>
+	</li>
+	<li class="tumblr">
+		<a data-toggle="tooltip" data-original-title="Tumblr" href="//www.tumblr.com/share/link?url={{ permalinkURL }}&amp;name={{ shareTitle }}" target="_blank">
+			<i class="fa fa-tumblr"></i>
+		</a>
+	</li>
+	<li class="google">
+		<a data-toggle="tooltip" data-original-title="Google +1" href="//plus.google.com/share?url={{ permalinkURL }}" target="_blank">
+			<i class="fa fa-google-plus"></i>
+		</a>
+	</li>
+	{% if product.featured_image or article.image %}
+	<li class="pinterest">
+		<a data-toggle="tooltip" href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{% if template contains 'product' %}{{ product | img_url: '1024x1024' }}{% else %}{{ article | img_url: '1024x1024' }}{% endif %}&amp;description={{ shareTitle }}" data-original-title="Pinterest" target="_blank">
+			<i class="fa fa-pinterest"></i>
+		</a>
+	</li>
+	{% endif %}
+</ul>

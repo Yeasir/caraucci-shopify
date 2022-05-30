@@ -1,0 +1,17 @@
+<div class="widget clearfix widget-product-filter">
+    <div class="widget-inner">
+        <h3 class="widget-title">
+            <span>Current filters</span>
+        </h3>
+        <div class="widget-content">
+            <ul class="tagcloud">
+                {% for tag in current_tags %}
+                    <li>
+                        <a class="clear-filter" data-filter="{{ tag | handleize }}" href="#" data-toggle="tooltip" title="Clear">{{ tag }}</a>
+                    </li>
+                {% endfor %}                
+            </ul>
+            <a href="#" class="clear-all-filter">Clear all</a>
+        </div>
+    </div>
+</div>

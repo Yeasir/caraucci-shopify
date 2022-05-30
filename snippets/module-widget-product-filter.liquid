@@ -1,0 +1,26 @@
+<div class="widget clearfix widget-product-filter">
+    <div class="widget-inner">
+        <h3 class="widget-title">
+            <span>{{ settings[title] }}</span>
+        </h3>
+        <div class="widget-content">
+            <ul>
+                {% assign tags = settings[tags] | split: ',' %}
+                {% for t in tags %}
+                    <!-- {% capture used_tags %}{{ current_tags | downcase }}{% endcapture %} -->
+                    {% capture collection_tags %}{{ collection.tags | downcase }}{% endcapture %}
+                    {% capture tag %}{{ t | strip | downcase }}{% endcapture %}
+                    {% assign tag_handle = tag | handleize %}
+                    {% capture id_input %}filter-{{ tag_handle }}{% endcapture %}                    
+
+                    {% if collection_tags contains tag %} 
+                        <li>
+                            <input type="checkbox" id="{{ id_input }}" value="{{ tag_handle }}" {% if current_tags contains tag %}checked{% endif %} />
+                            <label for="{{ id_input }}">{{ tag }}</label>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

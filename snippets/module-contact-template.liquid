@@ -1,0 +1,52 @@
+{% if settings.module_contact_enable_google_map && settings.module_contact_google_map_latitude != blank && settings.module_contact_google_map_longitude != blank %}
+	<div id="google-maps" 
+		data-gmap="map" 
+		data-zoom="15" 
+		data-lat="{{ settings.module_contact_google_map_latitude }}" 
+		data-lng="{{ settings.module_contact_google_map_longitude }}" 
+		style="height:300px"></div>
+{% endif %}
+
+{% unless settings.module_contact_title == blank && settings.module_contact_subtitle == blank %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-center contact-intro">
+				<div class="row">
+					<div class="col-sm-6">
+						<i class="icon-location-pin"></i>
+						<h5 class="heading-sans"><strong>Visit our location</strong> </h5>
+						<address class="contact">
+		                    {% if shop.address.summary != blank %}
+		                        <div class="item">
+		                            {{ shop.address.summary }}
+		                        </div>
+		                    {% endif %}
+		                    {% if shop.email != blank %}
+		                        <div class="item">
+		                            <a href="mailto:{{ shop.email }}" id="mail">{{ shop.email }}</a>
+		                        </div>
+		                    {% endif %}
+		                </address>
+					</div>
+					<div class="col-sm-6">
+						<i class="icon-phone"></i>
+						<h5 class="heading-sans"><strong>Give us a call</strong></h5>
+						<p>Want to speak with a sales representative? Drop us a line</p>
+						<address class="contact">
+		                    {% if shop.phone != blank %}
+		                        <div class="item">
+		                            {{ shop.phone }}
+		                        </div>
+		                    {% endif %}
+		                    {% if shop.fax != blank %}
+		                        <div class="item">
+		                            {{ shop.fax }}
+		                        </div>
+		                    {% endif %}
+		                </address>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endunless %}

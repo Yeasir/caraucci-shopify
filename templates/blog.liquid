@@ -1,0 +1,24 @@
+
+{% paginate blog.articles by 2 %}
+	{% assign breadcrumb_class = 'blog-breadcrumb' %}
+	{% include 'module-breadcrumb-title' %}
+	
+	<div id="is-content" class="is-content" data-is-full-width="true">
+		<div class="content-area container">
+			<div class="is-row-full-width"></div>
+			<div class="row">
+				<div class="col-xs-12  is-main-left-sidebar">
+						
+					{% include settings.blog_layout %}
+
+					{% if paginate.pages > 1 %}
+					  	<nav class="paging text-center">
+					    	{% include 'module-pagination' %}
+					    </nav>
+					{% endif %}
+				</div>
+				
+			</div>
+		</div>
+	</div>
+{% endpaginate %}

@@ -1,0 +1,31 @@
+{% capture selected_collection_column_width %}megamenu_collection_{{ megamenu_number }}_column{% endcapture %}
+{% capture collection_title %}megamenu_collection_title_{{ megamenu_number }}{% endcapture %}
+
+<div class="mega-col-nav {{ settings[selected_collection_column_width] }}">
+	<div class="mega-inner">
+		<div class="is-module module">
+			<div class="collection-responsive">
+				<h3>{{ settings[collection_title] }}</h3>
+				{% for collection_number in (1..3) %}
+					{% capture selected_collection %}megamenu_collection_{{ megamenu_number }}_{{ collection_number }}{% endcapture %}
+					{% capture enable_selected_collection_image %}megamenu_collection_image_{{ megamenu_number }}_{{ collection_number }}{% endcapture %}
+					{% capture selected_collection_image %}megamenu_collection_image_{{ megamenu_number }}_{{ collection_number }}.png{% endcapture %}
+
+					{% if settings[selected_collection] != blank %}
+						<a href="{{ collections[settings[selected_collection]].url }}">
+							{% if settings[enable_selected_collection_image] %}
+								<img src="{{ selected_collection_image | asset_url }}" />
+							{% else %}
+								{% if collections[settings[selected_collection]].image %}
+									<img src="{{ collections[settings[selected_collection]].image.src | img_url: 'small' }}" alt="{{ collections[settings[selected_collection]].title | escape }}" />
+								{% else %}
+								  	<img src="{{ collections[settings[selected_collection]].products.first | img_url: 'small' }}" alt="{{ collections[settings[selected_collection]].title | escape }}" />
+								{% endif %}
+							{% endif %}
+						</a> 
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>

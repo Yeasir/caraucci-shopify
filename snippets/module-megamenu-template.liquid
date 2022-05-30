@@ -1,0 +1,115 @@
+{% capture full_width %}megamenu_menu_{{ megamenu_number }}_fullwidth{% endcapture %}
+{% capture width %}megamenu_menu_{{ megamenu_number }}_width{% endcapture %}
+{% capture attr_li %}style="width:{{ settings[width] }}"{% endcapture %}
+
+<li class="menu-item dropdown mega{% if lvl1_link.active %} current-menu-item{% endif %}{% if settings[full_width] %} aligned-fullwidth" data-alignsub="fullwidth"{% else %}"{% endif %} data-level="1">
+	<a href="{{ lvl1_link.url }}" class="dropdown-toggle">
+		<span>{{ lvl1_link.title }}</span>
+		<i class="fa fa-angle-down"></i>
+	</a>
+	<div class="nav-child dropdown-menu mega-dropdown-menu" {{ attr_li }}>
+		<div class="mega-dropdown-inner">
+			<div class="row">
+
+				<!-- start sublist part -->
+				{% capture enable_sublist %}megamenu_enable_sublist_{{ megamenu_number }}{% endcapture %}
+				{% capture sublist_width %}megamenu_sublist_{{ megamenu_number }}_column{% endcapture %}
+				{% capture sublist_item_width %}megamenu_sublist_item_{{ megamenu_number }}_column{% endcapture %}
+				{% if settings[enable_sublist] %}
+					<div class="mega-col-nav {{ settings[sublist_width] }}">
+						<div class="mega-inner">
+							<div class="row">
+								{% assign lvl2_links = linklists[lvl1_link_handle].links %}
+								{% for lvl2_link in lvl2_links %}
+									{% assign lvl2_link_handle = lvl2_link.handle %}
+									{% assign lvl3_links = linklists[lvl2_link_handle].links %}
+
+									<div class="mega-col-nav {{ settings[sublist_item_width] }}">
+										<div class="mega-inner">
+											<ul class="mega-nav level1">
+												<li class="menu-item mega mega-group" data-level="2">
+													<a href="{{ lvl2_link.url }}" class="mega-group-title">
+														<span>{{ lvl2_link.title }}</span>
+													</a>
+													<div class="nav-child mega-group-ct">
+														<div class="mega-dropdown-inner">
+															<div class="row">
+																<div class="mega-col-nav col-sm-12">
+																	<div class="mega-inner">
+																		<ul class="mega-nav level2">
+																			{% for lvl3_link in lvl3_links %}
+																				<li class="menu-item">
+																					<a href="{{ lvl3_link.url }}">
+																						<span>{{ lvl3_link.title }}</span>
+																					</a>
+																				</li>
+																			{% endfor %}
+																		</ul>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</li>											
+											</ul>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				<!-- end of sublist part -->
+
+				<!-- collection product listing -->
+				{% for collection_number in (1..2) %}
+					{% capture enable_collection_product %}megamenu_enable_collection_product_{{ megamenu_number }}_{{ collection_number }}{% endcapture %}
+					{% capture collection_product_title %}megamenu_collection_product_title_{{ megamenu_number }}_{{ collection_number }}{% endcapture %}
+					{% capture selected_collection_product_column_width %}megamenu_collection_product_{{ megamenu_number }}_column_{{ collection_number }}{% endcapture %}
+					{% capture selected_collection_product_style %}megamenu_collection_products_{{ megamenu_number }}_style_{{ collection_number }}{% endcapture %}
+					{% capture selected_collection_product %}megamenu_collection_products_{{ megamenu_number }}_{{ collection_number }}{% endcapture %}
+					{% capture selected_collection_product_number %}megamenu_collection_products_number_{{ megamenu_number }}_{{ collection_number }}{% endcapture %}
+					{% if settings[enable_collection_product] %}
+						<div class="mega-col-nav {{ settings[selected_collection_product_column_width] }}">
+							<div class="mega-inner">
+								<div class="is-module module">
+									<div class="collection-responsive">
+										<h3>{{ settings[collection_product_title] }}</h3>
+										{% assign collection = collections[settings[selected_collection_product]] %}
+										{% assign limit = settings[selected_collection_product_number] %}
+										{% capture layout_type %}product-layout-{{ settings[selected_collection_product_style] }}{% endcapture %}
+										{% capture horizontal_column %}megamenu_collection_product_horizontal_column_{{ megamenu_number }}_{{ collection_number }}{% endcapture %}
+										{% assign column = settings[selected_collection_product_number] %}
+										{% include layout_type %}
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+				<!-- end of collection product listing -->
+
+				<!-- custom block -->				
+				{% capture enable_custom_block %}megamenu_enable_custom_block_{{ megamenu_number }}{% endcapture %}
+				{% capture custom_block_title %}megamenu_custom_block_title_{{ megamenu_number }}{% endcapture %}
+				{% capture custom_block %}megamenu_custom_block_{{ megamenu_number }}{% endcapture %}
+				{% capture custom_block_column_width %}megamenu_custom_block_{{ megamenu_number }}_column{% endcapture %}
+				{% if settings[enable_custom_block] %}
+					<div class="mega-col-nav {{ settings[custom_block_column_width] }}">
+						<div class="mega-inner">
+							<div class="is-module module">
+								{% if settings[custom_block_title] != blank %}
+								<h3>{{ settings[custom_block_title] }}</h3>
+								{% endif %}
+								<div class="collection-responsive">
+									{{ settings[custom_block] }}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				<!-- end of custom block -->
+			</div>			
+		</div>
+	</div>
+</li>

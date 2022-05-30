@@ -1,0 +1,32 @@
+{% if settings.enable_carousel %}
+<div class="owl-container">
+	<div class="is-carousel" 
+		data-dots="{{ settings.enable_dot }}" 
+		data-nav="{{ settings.enable_nav }}" 
+		data-loop="{{ settings.enable_loop }}" 
+		data-autoplay="{{ settings.enable_autoplay }}">
+	{% for i in (1..5) %}
+		{% capture enable %}enable_carousel_{{ i }}{% endcapture %}
+		{% capture image %}carousel_{{ i }}.jpg{% endcapture %}
+		{% capture image_thumb %}carousel_thumb_{{ i }}.jpg{% endcapture %}
+		{% capture text %}carousel_{{ i }}_text{% endcapture %}
+		{% capture text_position %}carousel_{{ i }}_text_position{% endcapture %}
+		{% if settings[enable] %}
+			<div class="carousel-item clearfix">
+				<div class="col-xs-8 img-carousel">
+					<img src="{{ image | asset_url }}" alt="carousel_{{ i }}.jpg">
+				</div>
+				<div class="col-xs-3 img-thumb">
+					<img src="{{ image_thumb | asset_url }}" alt="carousel_thumb_{{ i }}.jpg">
+				</div>
+				<div class="carousel-text {{ settings[text_position] }} carousel-caption">
+					<div class="carousel-caption-inner">
+						{{ settings[text] }}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+	</div>
+</div>
+{% endif %} 

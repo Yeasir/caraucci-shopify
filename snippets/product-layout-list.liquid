@@ -1,0 +1,9 @@
+{% comment %}
+	require collection
+{% endcomment %}
+
+<ul class="product_list_widget">
+	{% for product in collection.products limit:limit %}
+		{% include "product-archive-vertical-item" %}
+	{% endfor %}				
+</ul>

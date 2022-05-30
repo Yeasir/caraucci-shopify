@@ -1,0 +1,18 @@
+{% comment %} 
+	require product
+{% endcomment %}
+
+<li>
+	<div class="image pull-left">
+		{% assign featured_image = product.featured_image %}
+        <img src="{{ featured_image | img_url: '100x100' }}" alt="{{ featured_image.alt | escape }}">
+	</div>
+	<div class="inner-content">
+		<a href="{{ product.url }}" title="{{ product.title }}" class="title"><span>{{ product.title }}</span></a>
+		<div class="star-rating"></div>
+		<div class="category">
+			<a href="#0">{{ product.collections[0].title }}</a>
+		</div>
+		<span class="amount">{{ product.price | money_with_currency }}</span>
+	</div>
+</li>

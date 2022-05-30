@@ -1,0 +1,299 @@
+<div class="container">
+    {% comment %}
+    Regular page content goes here.
+    {% endcomment %}
+    {{ page.content }}
+</div>
+
+
+
+
+
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+<script type='text/javascript'>
+    (function ($) {
+        window.fnames = new Array();
+        window.ftypes = new Array();
+        fnames[0] = 'EMAIL';
+        ftypes[0] = 'email';
+        fnames[4] = 'MMERGE3';
+        ftypes[4] = 'text';
+        fnames[2] = 'MMERGE2';
+        ftypes[2] = 'dropdown';
+        fnames[1] = 'MMERGE1';
+        ftypes[1] = 'radio';
+
+        $('body').on('click', '#mc-embedded-subscribe', function () {
+            setInterval(function(){
+
+                var notEmpty = $("#mce-success-response").html();
+
+                console.log( notEmpty );
+
+                if( notEmpty != '' ){
+                    $(".mc-success-result").removeClass('hide');
+                    $(".mc-form").addClass('hide');
+                }else{
+                    console.log('false')
+                }
+
+            }, 4000);
+
+        });
+
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+</script>
+<!--End JS ##mc_embed_signup-->
+
+<!-- CSS ##Mailchimp Signup Form -->
+<style type="text/css">
+    #signup-mailchimp ,.is-breadcrumb+.is-content{
+        padding: 0;
+        margin: 0;
+    }
+    .wrapper {
+        overflow: inherit;
+    }
+    html,#signup-mailchimp ,.is-breadcrumb+.is-content,.wrapper ,.content-area,.container,.sign-up-bg,.is-content{
+        height: 100%;
+    }
+
+    .sign-up-bg{
+        background-position: right;
+    }
+    .container{
+        padding: 0;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .sign-up-bg{
+        min-height: 760px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .signup-mailchimp{
+
+        font-weight: 400;
+        overflow: hidden;
+        max-width: 1280px;
+        margin: 0 auto;
+    background-color: #4a6368;
+        color: #efefed;
+        font-family: Roboto;
+        background-size: 51%;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    }
+
+    html {
+        padding-bottom: 0 !important;
+    }
+
+    img{
+        max-width: 100%;
+        height: auto;
+    }
+    .wrapper .signup-mailchimp [type="submit"],.back-to-shop {
+        border-radius: 8px;
+        padding: 6px 12px;
+        text-align: center;
+        display: block;
+        width: 100%;
+        font-size: inherit;
+        background-color: #d9bc98;
+        color: #486369;
+        border-color: #d9bc98;
+    }
+    .back-to-shop{
+        font-size: 24px;
+        padding: 10px 12px;
+    }
+    .wrapper .signup-mailchimp [type="submit"]:hover {
+        opacity: .8;
+    }
+    .wrapper .signup-mailchimp [type="submit"] {
+        font-size: 24px;
+        text-transform: inherit;
+    }
+    .wrapper .signup-mailchimp [type="text"] ,
+    .wrapper .signup-mailchimp [type="email"] {
+        color: #486369;
+        width: 100%;
+        border: 0;
+        height: inherit;
+        padding: 10px 15px;
+        margin-bottom: 18px;
+        font-size: 16px;
+    }
+    .col-1{
+        width: 44.6875%;
+        float: left;
+        position: relative;
+    }
+    .col-2{
+        width: 55.3125%;
+        float: right;
+        padding: 80px 141px 0 97px;
+
+        background-size: 0;
+        background-repeat: no-repeat;
+        background-position: right bottom;
+    }
+    .width-fix{
+        max-width: 470px;
+        margin: 0 auto;
+    }
+    .signup-mailchimp-logo {
+        position: absolute;
+        top: 56.63px;
+        left: 54px;
+        z-index: 99;
+        width: 22%;
+    }
+    h2{
+        font-size: 48px;
+        margin: 0 0 9px;
+        text-transform: uppercase;
+        font-family: "Playfair Display";
+        font-weight: 700;
+    }
+    p{
+        font-weight: 300;
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+    .discount-text {
+        font-size: 18px;
+        padding: 80px 0 60px;
+    }
+    .discount-text span, p strong,p span{
+        color: #D9BC98;
+    }
+
+    .discount-text p{
+        margin-bottom: 0;
+        font-size: 28px;
+    }
+    @media (max-width: 1280px) {
+        .signup-mailchimp{
+            max-width: 1280px;
+        }
+        .sign-up-bg {
+            padding: 0;
+        }
+        .col-1 {
+            width: 46.875%;
+        }
+        .col-2 {
+            width: 53.125%;
+        }
+    }
+    @media (max-width: 1220px) {
+        .col-2 {
+            padding: 80px 110px 0 97px;
+        }
+        .discount-text {
+            padding: 30px 0 40px;
+        }
+        .discount-text p, p {
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 38px;
+        }
+    }
+    @media (max-width: 1024px) {
+        .wrapper .signup-mailchimp [type="submit"] {
+            font-size: 18px;
+        }
+        .discount-text p, p {
+            font-size: 20px;
+        }
+        .col-2 {
+            padding: 60px 110px 0 97px;
+        }
+        html,#signup-mailchimp ,.is-breadcrumb+.is-content,.wrapper ,.content-area,.container,.sign-up-bg{
+            height: inherit;
+        }
+        .wrapper .signup-mailchimp [type="text"], .wrapper .signup-mailchimp [type="email"] {
+            padding: 6px 15px;
+        }
+    }
+    @media (max-width: 990px) {
+        .col-1{
+            max-width: 45%;
+        }
+        .col-2{
+            max-width: 55%;
+            padding: 30px 30px 0;
+        }
+        .discount-text {
+            padding: 20px 0;
+        }
+        h2 {
+            font-size: 36px;
+        }
+        .discount-text p, p{
+            font-size: 20px;
+        }
+    }
+    @media (max-width: 767px) {
+        .sign-up-bg{
+            display: inline-block;
+        }
+        html, #signup-mailchimp, .is-breadcrumb+.is-content, .wrapper, .content-area, .container, .sign-up-bg {
+            height: inherit;
+        }
+        h2 {
+            font-size: 30px;
+        }
+        p{
+            font-weight: 300;
+            line-height: 20px;
+            color: #EFEFED;
+            font-size: 16px;
+        }
+        .discount-text p{
+            font-size: 20px;
+            line-height: 30px;
+        }
+        .col-1{
+            width: 100%;
+            max-width: 100%;
+        }
+        .signup-mailchimp {
+            background-image: none !important;
+        }
+        .col-2{
+            background-size: 93%;
+            float: left;
+            width: 100%;
+            max-width: 100%;
+            padding: 46px;
+        }
+        .discount-text {
+            padding: 28.81px 0;
+        }
+        .back-to-shop {
+            font-size: 14px;
+            padding: 3px 12px;
+            margin-bottom: 60px;
+        }
+        .wrapper .signup-mailchimp [type="text"], .wrapper .signup-mailchimp [type="email"] {
+            padding: 3px 15px;
+            border: 1px solid #28363B;
+            font-size: 12px;
+            margin-bottom: 9.53px;
+        }
+        .wrapper .signup-mailchimp [type="submit"] {
+            font-size: 12px;
+            padding: 3px 15px;
+        }
+    }
+</style>
+
+{% section 'signup-mailchimp-template' %}
+

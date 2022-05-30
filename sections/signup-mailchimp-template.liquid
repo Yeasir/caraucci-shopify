@@ -1,0 +1,416 @@
+{% comment %}
+<div class="signup-mailchimp signup-mailchimp-{{ section.id }}" style="margin-top: 180px">
+
+	<div class=" col-2">
+		<div class="mc-form">
+			<h2>STAY CONNECTED</h2>
+			<p>Receive monthly promotions, sales, events, and new arrivals from StyleCaravan.</p>
+			<div class="discount-text">
+				<p>Receive <strong>20% off</strong> your first order after signing up.</p>
+			</div>
+			<div id="mc_embed_signup">
+				<form action="https://stylecaravan.us2.list-manage.com/subscribe/post?u=e53a526443b35645badad5201&amp;id=5e538862bc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+					<div id="mc_embed_signup_scroll">
+
+						<div class="mc-field-group">
+							<input type="text" value="" name="MMERGE3" class="" id="mce-MMERGE3" placeholder="Name">
+						</div>
+						<div class="mc-field-group">
+							<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email *">
+						</div>
+
+						<div id="mce-responses" class="clear">
+							<div class="response" id="mce-error-response" style="display:none"></div>
+							<div class="response" id="mce-success-response" style="display:none"></div>
+						</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+						<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_e53a526443b35645badad5201_5e538862bc" tabindex="-1" value=""></div>
+						<div class="clear"><input type="submit" value="Sign-up" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="mc-success-result hide">
+			<h2>THANKS!</h2>
+			<div>
+				<p>Use Code: <strong>FIRST20</strong></p>
+				<p>to get <strong>20% off</strong> your first order.</p>
+			</div>
+			<div class="discount-text">
+				<p>Share the love.</p>
+				<p><a href="mailto:info@info.com" style="color: #D9BC98">Email a friend</a></p>
+			</div>
+			<a href="#" class="back-to-shop">Shop StyleCaravan</a>
+		</div>
+
+	</div>
+	<div class="col-1">
+
+		<div class="signup-mailchimp-logo">
+			<img src="{{ 'svg-logo-sryle-caravan.svg' | asset_url }}" class="signup-mailchimp-banner" alt="" >
+		</div>
+		<img src="{{ section.settings.banner | img_url: 'original' }}" class="signup-mailchimp-banner" alt="" >
+
+	</div>
+
+
+	<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+	<script type='text/javascript'>
+        (function ($) {
+            window.fnames = new Array();
+            window.ftypes = new Array();
+            fnames[0] = 'EMAIL';
+            ftypes[0] = 'email';
+            fnames[4] = 'MMERGE3';
+            ftypes[4] = 'text';
+            fnames[2] = 'MMERGE2';
+            ftypes[2] = 'dropdown';
+            fnames[1] = 'MMERGE1';
+            ftypes[1] = 'radio';
+
+            $('body').on('click', '#mc-embedded-subscribe', function () {
+                setInterval(function(){
+
+                    var notEmpty = $("#mce-success-response").html();
+
+                    console.log( notEmpty );
+
+                    if( notEmpty != '' ){
+                       $(".mc-success-result").removeClass('hide');
+                       $(".mc-form").addClass('hide');
+					}else{
+                        console.log('false')
+					}
+
+                }, 4000);
+
+            });
+
+        }(jQuery));
+        var $mcj = jQuery.noConflict(true);
+	</script>
+	<!--End mc_embed_signup-->
+	{% for block in section.blocks %} {% endfor %}
+</div>
+{% endcomment %}
+
+<!-- Begin Mailchimp Signup Form -->
+<style type="text/css">
+
+	{% assign header_font = section.settings.title_fonts %}
+	{% assign base_font = section.settings.body_fonts %}
+
+	{{ header_font | font_face }}
+	{{ base_font | font_face }}
+
+	{%- assign base_font_bold = base_font | font_modify: 'weight', 'normal' -%}
+	{%- assign base_font_italic = base_font | font_modify: 'style', 'italic' -%}
+	{%- assign base_font_bold_italic = base_font_bold | font_modify: 'style', 'italic' -%}
+
+	{%- assign header_font_bold = header_font | font_modify: 'weight', 'bolder' -%}
+
+	{{ base_font_bold | font_face }}
+	{{ base_font_italic | font_face }}
+	{{ base_font_bold_italic | font_face }}
+
+	{{ header_font_bold | font_face }}
+
+	{% comment %}
+	.signup-mailchimp{
+		font-weight: 400;
+		overflow: hidden;
+		max-width: 1280px;
+		margin: 0 auto;
+		background-color: {{section.settings.body_bg_color}};
+	color: {{section.settings.text_color}};
+	font-family: {{ base_font.family }};
+
+	background-image: url({{section.settings.banner2 | img_url: '600x600' }});
+	background-repeat: no-repeat;
+	background-position: right bottom;
+
+	}
+
+	img{
+		max-width: 100%;
+		height: auto;
+	}
+
+	.wrapper .signup-mailchimp [type="submit"],.back-to-shop {
+		border-radius: 8px;
+		padding: 6px 12px;
+		text-align: center;
+		display: block;
+		width: 100%;
+		font-size: inherit;
+	background-color: {{section.settings.button_color2}};
+	color: {{section.settings.button_color}};
+	border-color: {{section.settings.button_color2}}
+	}
+	.back-to-shop{
+		font-size: 24px;
+		padding: 10px 12px;
+	}
+	.wrapper .signup-mailchimp [type="submit"]:hover {
+		opacity: .8;
+	}
+	.wrapper .signup-mailchimp [type="submit"] {
+		font-size: 24px;
+		text-transform: inherit;
+	}
+	.wrapper .signup-mailchimp [type="text"] ,
+	.wrapper .signup-mailchimp [type="email"] {
+		color: #486369;
+		width: 100%;
+		border: 0;
+		height: inherit;
+		padding: 10px 15px;
+		margin-bottom: 18px;
+		font-size: inherit;
+	}
+	.col-1{
+		width: 45%;
+		float: left;
+		position: relative;
+	}
+	.col-2{
+		width: 55%;
+		float: right;
+		padding: 80px 141px 0 97px;
+	}
+	.width-fix{
+		max-width: 470px;
+		margin: 0 auto;
+	}
+	.signup-mailchimp-logo {
+		position: absolute;
+		top: 60px;
+		left: 50px;
+		z-index: 99;
+		width: 22%;
+	}
+	h2{
+		font-size: 48px;
+		margin: 0 0 9px;
+		text-transform: uppercase;
+		font-family: {{ header_font.family }};
+	font-weight: {{ header_font_bold.weight }}
+	}
+	p{
+		font-weight: 400;
+		font-size: 24px;
+		margin-bottom: 0;
+	}
+	.discount-text {
+		font-size: 18px;
+		padding: 80px 0 60px;
+	}
+	.discount-text strong, p strong{
+		color: #D9BC98;
+		font-weight: normal;
+	}
+
+	.discount-text p{
+		margin-bottom: 0;
+		font-size: 28px;
+	}
+	@media (max-width: 1200px) {
+		.col-2{
+			padding: 30px;
+		}
+	}
+	@media (max-width: 990px) {
+		.col-1{
+			max-width: 45%;
+		}
+		.col-2{
+			max-width: 55%;
+			padding: 30px;
+		}
+		.discount-text {
+			padding: 20px 0;
+		}
+		h2 {
+			font-size: 36px;
+		}
+		.discount-text p, p{
+			font-size: 20px;
+		}
+	}
+	@media (max-width: 767px) {
+		h2 {
+			font-size: 30px;
+		}
+		 p{
+			font-size: 16px;
+		}
+		.discount-text p{
+			font-size: 20px;
+		}
+		.col-1{
+			width: 100%;
+			max-width: 100%;
+		}
+		.col-2{
+			float: left;
+			width: 100%;
+			max-width: 100%;
+			padding: 46px;
+		}
+		.discount-text {
+			padding: 40px 0;
+		}
+		.back-to-shop {
+			font-size: 16px;
+			padding: 6px 12px;
+			margin-bottom: 60px;
+		}
+		.wrapper .signup-mailchimp [type="text"], .wrapper .signup-mailchimp [type="email"] {
+			padding: 5px 15px;
+		}
+		.wrapper .signup-mailchimp [type="submit"] {
+			font-size: 16px;
+		}
+	}
+	{% endcomment %}
+</style>
+
+
+{% schema %}
+	{
+		"name": "Signup Mailchimp",
+		"class": "Signup-Mailchimp",
+		"settings": [
+			{
+				"type": "header",
+				"content": "Content"
+			},
+			{
+				"id": "title",
+				"type": "text",
+				"label": "Heading",
+				"default": "stay connected"
+			},
+			{
+				"id": "subtitle",
+				"type": "textarea",
+				"label": "Short Description",
+				"default": "And receive monthly promotions, sales, events, and new arrivals form StyleCaravan. "
+			},
+			{
+				"id": "discount",
+				"type": "richtext",
+				"label": "Discount Text",
+				"default": "<p>Receive <span>20% off</span> your first order after signing up.</p>"
+			},
+			{
+				"type": "header",
+				"content": "Success Message"
+			},
+			{
+				"id": "title2",
+				"type": "text",
+				"label": "Heading",
+				"default": "THANKS!"
+			},
+			{
+				"id": "subtitle2",
+				"type": "richtext",
+				"label": "Discount Text",
+				"default": "<p>Receive <span>20% off</span> your first order after signing up.</p>"
+			},
+			{
+				"id": "subtitle3",
+				"type": "text",
+				"label": "Share Text",
+				"default": "Share the love."
+			},
+			{
+				"id": "subtitle4",
+				"type": "text",
+				"label": "Email Address",
+				"default": "info@info.com"
+			},
+			{
+				"id": "subtitle5",
+				"type": "url",
+				"label": "Shop URL"
+			},
+			{
+				"type": "header",
+				"content": "Mailchimp Action"
+			},
+			{
+				"id": "mailchimp_action",
+				"type": "textarea",
+				"label": "Action URL",
+				"default": "https://stylecaravan.us2.list-manage.com/subscribe/post?u=e53a526443b35645badad5201&amp;id=5e538862bc"
+			},
+			{
+				"type": "header",
+				"content": "Logo & Banners"
+			},
+			{
+				"id": "banner",
+				"type": "image_picker",
+				"label": "Banner Image"
+			},
+			{
+				"id": "banner2",
+				"type": "image_picker",
+				"label": "Background Image"
+			},
+			{
+				"type": "header",
+				"content": "Typography"
+			},
+			{
+				"type":    "font_picker",
+				"label":   "Body",
+				"id":      "body_fonts",
+				"info":    "Body font family",
+				"default": "helvetica_n4"
+			},
+			{
+				"type":    "font_picker",
+				"label":   "Title",
+				"id":      "title_fonts",
+				"info":    "Title font family",
+				"default": "helvetica_n4"
+			},
+			{
+				"type": "header",
+				"content": "Text & BG Color"
+			},
+			{
+				"id": "body_bg_color",
+				"type": "color",
+				"label": "Body BG",
+				"default": "#4A6368"
+			},
+			{
+				"id": "text_color",
+				"type": "color",
+				"label": "Body Color",
+				"default": "#ffffff"
+			},
+			{
+				"id": "title_color",
+				"type": "color",
+				"label": "Title Color",
+				"default": "#ffffff"
+			},
+			{
+				"id": "button_color",
+				"type": "color",
+				"label": "Button Text Color",
+				"default": "#486369"
+			},
+			{
+				"id": "button_color2",
+				"type": "color",
+				"label": "Button BG Color",
+				"default": "#D9BC98"
+			}
+		]
+	}
+{% endschema %}

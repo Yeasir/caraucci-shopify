@@ -1,0 +1,129 @@
+<div class="collection-product clearfix">
+	{% if settings.lookbook_home_enable %}
+		{% if settings.lookbook_home_style == "style_1" %}
+		<div class="lookbook-style-1">
+			<div class="container">
+				<div class="row">
+					<h3 class="heading-title">
+						<span>{{ settings.look_book_title }}</span>
+					</h3>
+					<p class="text-center"><span>{{settings.look_book_desc }}</span> </p>
+					{% for i in (1..3) %}
+						{% capture enable %}enable_lookbook_{{ i }}{% endcapture %}
+						{% capture image %}lookbook_{{ i }}{% endcapture %}
+						{% capture img_alt %}lookbook_{{ i }}_alt{% endcapture %}
+						{% capture img_title %}lookbook_{{ i }}_title{% endcapture %}
+						{% capture lookbook_collection %}lookbook_collection_{{ i }}{% endcapture %}
+						{% capture price %}lookbook_price_{{ i }}{% endcapture %}
+						{% capture title %}look_book_title_{{ i }}{% endcapture %}
+						{% if settings[enable] %}
+						<div class="col-sm-4">
+							<div class="lookbook-item ">
+								<div class="lookbook-image">
+									<a href="{{  collections[settings[lookbook_collection]].url }}" title="{{ settings[img_title] }}">
+										<img src="{{ settings[image] | img_url: 'master' }}" alt="{{ settings[img_alt] }}" class="img-responsive">
+									</a>
+								</div>
+								<div class="lookbook-info text-left style-1">
+									<h4 ><a href="{{  collections[settings[lookbook_collection]].url }}"> {{ settings[title] }}</a></h4>
+
+								</div>
+							</div>
+						</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% elsif settings.lookbook_home_style == "style_2" %}
+			<div class="lookbook-style-2">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-3 " style="clear:left">
+							<div class="lookbook-item style-2">
+								<div class="lookbook-image">
+									<a href="{{  collections[settings.lookbook_collection_1].url }}" title="{{ settings.lookbook_1_title }}"><img class="img-responsive" src="{{ settings.lookbook_1 | img_url: 'master' }}" alt="{{ settings.lookbook_1_alt }}"></a>
+								</div>
+								<div class="lookbook-info text-left">
+									<h4>{{ settings.look_book_title_1 }}</h4>
+									<span>from</span> <h3><strong>{{ settings.lookbook_desc_1 }}</strong></h3>
+								</div>
+								
+							</div>
+						</div>
+						<div class="col-sm-6 ">
+							<div class="lookbook-item style-3">
+								<div class="lookbook-image">
+									<img  class="img-responsive" src="{{ settings.lookbook_2 | img_url: 'master' }}" alt="{{ settings.lookbook_2_alt }}" title="{{ settings.lookbook_2_title }}">
+								</div>
+								<div class="lookbook-info text-center ">
+									<h3>{{ settings.look_book_title_2 }}</h3>
+									<h2><strong>{{ settings.lookbook_desc_2 }}</strong> </h2>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3 ">
+							<div class="lookbook-item style-4">
+								<div class="lookbook-image">
+									<a href="{{  collections[settings.lookbook_collection_3].url }}"  title="{{ settings.lookbook_3_title }}"><img  class="img-responsive" src="{{ settings.lookbook_3 | img_url: 'master' }}" alt="{{ settings.lookbook_3_alt }}"></a>
+								</div>
+								<div class="lookbook-info text-right ">
+									<h4>{{ settings.look_book_title_3 }}</h4>
+									<h3> <strong>{{ settings.lookbook_desc_3 }}</strong></h3> 
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% elsif settings.lookbook_home_style == "style_3" %}
+			<div class="container">
+				<div class="row">
+					<div class="lookbook-style-3 clearfix">
+						<div class="col-sm-3  style-1" style="clear:left">
+							<div class="lookbook-item ">
+								<div class="lookbook-image ">
+									<a href="{{  collections[settings.lookbook_collection_1].url }}" title="{{ settings.lookbook_1_title }}"><img class="img-responsive" src="{{ settings.lookbook_1 | img_url: 'master' }}" alt="{{ settings.lookbook_1_alt }}"></a>
+								</div>
+								<div class="lookbook-info ">
+									<h4>{{ settings.look_book_title_1 }}</h4>
+									<span>from</span> <h3><strong>{{ settings.lookbook_desc_1 }}</strong></h3>
+								</div>
+								
+							</div>
+						</div>
+						<div class="col-sm-6 col-sm-offset-3 style-2">
+							<div class="lookbook-item ">
+								<div class="lookbook-image">
+									<img  class="img-responsive" src="{{ settings.lookbook_2 | img_url: 'master' }}" alt="{{ settings.lookbook_2_alt }}" title="{{ settings.lookbook_2_title }}">
+								</div>
+								<div class="lookbook-info text-center ">
+									<h3>{{ settings.look_book_title_2 }}</h3>
+									<h2>{{ settings.lookbook_desc_2 }}</h2>
+									<p>{{settings.look_book_desc }}</p>
+									<a href="{{  collections[settings.lookbook_collection_2].url }}" class="btn btn-primary">shop sale</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3 style-3">
+							<div class="lookbook-item ">
+								<div class="lookbook-info text-right ">
+									<h4>{{ settings.look_book_title_3 }}</h4>
+									<h2>{{settings.lookbook_collection_3}}</h2>
+									<span>from</span> <h3> <strong>{{ settings.lookbook_desc_3 }}</strong></h3>
+								</div>
+								<div class="lookbook-image">
+									<a href="{{  collections[settings.lookbook_collection_3].url }}" title="{{ settings.lookbook_3_title }}"><img  class="img-responsive" src="{{ settings.lookbook_3 | img_url: 'master' }}" alt="{{ settings.lookbook_3_alt }}"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% endif %}
+
+</div>
+

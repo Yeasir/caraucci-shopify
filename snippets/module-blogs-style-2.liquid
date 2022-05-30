@@ -1,0 +1,29 @@
+{% if settings.module_blog_title != blank %}
+	<h3 class="heading-title">
+		<span>{{ settings.module_blog_title }}</span>
+	</h3>
+{% endif %}
+{% assign blog = blogs[settings.module_blog_name] %}
+{% assign limit = settings.module_blog_limit %}
+
+{% if blog.empty? || blog.articles_count == 0 %}
+	<div>There is no article to show at the moment</div>
+{% else %}
+	<div class="row blogs-visual text-center">
+		{% for article in blog.articles | limit: limit %}
+			<div class="col-sm-4">
+				<div class="post-thumb">
+					<a href="{{ article.url }}">
+						{% if article.image %}<img src="{{ article | img_url: 'large' }}" alt="{{ article.title }}">{% endif %}
+					</a>
+					<span class="post-type"><i class="icon-docs"></i></span>
+				</div>
+				<div class="blog-title">
+					<div class="item-cate"><a href="{{ blog.url }}">{{ blog.title }} </a> </div>
+					<h4><a href="{{ article.url }}">{{ article.title }}</a></h4> 
+				</div>
+				
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

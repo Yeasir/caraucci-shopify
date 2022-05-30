@@ -1,0 +1,37 @@
+{% assign type = settings.tab_product_layout %}
+{% assign column = settings.tab_product_columns %}
+{% assign limit = settings.tab_product_number %}
+<div class="tabbable is-tabbable tab-product owl-custom">
+    <div class="tabbable-inner">
+        <ul class="nav nav-tabs">
+        	{% for i in (1..5) %}
+        		{% capture tab_collection %}tab_product_collection_{{ i }}{% endcapture %}
+				{% unless collections[settings[tab_collection]].empty? %}
+		        	<li{% if i == 1 %} class="active"{% endif %}>
+	                    <a href="#tab-product-{{ i }}" data-toggle="tab">
+	                        {{ collections[settings[tab_collection]].title }}
+	                    </a>
+	                </li>
+                {% endunless %}
+        	{% endfor %}
+        </ul>
+		<div class="tab-content">
+			{% for i in (1..5) %}
+				{% capture tab_collection %}tab_product_collection_{{ i }}{% endcapture %}
+				{% unless collections[settings[tab_collection]].empty? %}
+					<div class="fade tab-pane{% if i == 1 %} active in{% endif %}" id="tab-product-{{ i }}">
+		                {% assign custom_collection = settings[tab_collection] %}
+                        {% assign collection2 = collections[custom_collection] %}
+                        {% if collection2 != blank %}
+							<div class="collection-link text-center">
+								<a href="{{ collection2.url }}" class="btn  collection-btn">SHOP ALL</a>
+							</div>
+                        {% endif %}
+						{% include "product-listing" %}
+                        {% assign collection2 = blank %}
+		            </div>
+	            {% endunless %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
